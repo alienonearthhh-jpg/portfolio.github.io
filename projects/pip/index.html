@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PIP — Bb</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #ffffff; --ink: #1A1A18; --muted: #8A8A84;
+      --border: #C8C4BC; --accent: #C94C28; --mono: 'Space Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--mono); font-size: 13px; line-height: 1.7; }
+
+    .site-nav { display: flex; justify-content: space-between; align-items: center; padding: 28px 40px; border-bottom: 1px solid var(--border); }
+    .site-nav .logo { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.01em; text-decoration: none; color: var(--ink); text-transform: none; }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--muted); }
+    .nav-links a.back { color: var(--accent); }
+    .nav-links a:hover { color: var(--ink); }
+
+    .project-header { padding: 52px 40px 40px; max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; border-bottom: 1px solid var(--border); }
+    .project-num { font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+    .project-title { font-size: clamp(20px, 3vw, 32px); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.15; }
+    .project-meta { display: flex; flex-direction: column; gap: 12px; }
+    .meta-row { display: flex; gap: 20px; font-size: 11px; }
+    .meta-label { width: 80px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; flex-shrink: 0; }
+
+    .section { max-width: 960px; margin: 0 auto; padding: 56px 40px; border-bottom: 1px solid var(--border); }
+    .section-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; }
+
+    /* insight blocks */
+    .insight-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+    .insight-item { border-top: 2px solid var(--ink); padding-top: 16px; }
+    .insight-num { font-size: 10px; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 8px; }
+    .insight-title { font-weight: 700; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px; line-height: 1.4; }
+    .insight-body { font-size: 11px; color: var(--muted); line-height: 1.7; }
+
+    /* window embed */
+    .window-card { border: 1px solid var(--border); overflow: hidden; }
+    .window-bar { display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #f0f0ee; border-bottom: 1px solid var(--border); }
+    .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .dot.red { background: #ff5f57; }
+    .dot.yellow { background: #febc2e; }
+    .dot.green { background: #28c840; }
+    .window-title { font-size: 10px; color: var(--muted); letter-spacing: 0.04em; margin-left: 4px; }
+    .window-footer { padding: 12px 16px; border-top: 1px solid var(--border); font-size: 10px; color: var(--muted); display: flex; justify-content: space-between; align-items: center; }
+    .window-footer a { color: var(--accent); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; font-size: 10px; }
+
+    /* two col */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+
+    footer { border-top: 1px solid var(--border); padding: 24px 40px; display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); }
+    footer a { color: var(--muted); text-decoration: none; }
+
+    @media (max-width: 700px) {
+      .site-nav, .project-header, .section { padding-left: 20px; padding-right: 20px; }
+      .project-header, .two-col, .insight-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <a class="logo" href="../index.html">Bb</a>
+    <div class="nav-links">
+      <a href="../index.html#projects">← All Works</a>
+      <a class="back" href="../index.html#contact">Contact</a>
+    </div>
+  </nav>
+
+  <header class="project-header">
+    <div>
+      <div class="project-num">Project 03</div>
+      <h1 class="project-title">PIP</h1>
+      <p style="font-size:13px; color:var(--muted); margin-top:12px; max-width:340px;">A wearable companion that makes connecting at events effortless.</p>
+    </div>
+    <div class="project-meta">
+      <div class="meta-row"><span class="meta-label">Year</span><span>2025</span></div>
+      <div class="meta-row"><span class="meta-label">Type</span><span>Product Design · Interaction Design</span></div>
+      <div class="meta-row"><span class="meta-label">Context</span><span>Digital Experience Design — UTS</span></div>
+      <div class="meta-row"><span class="meta-label">Tools</span><span>Figma · Arduino · 3D Printing (Bambu)</span></div>
+    </div>
+  </header>
+
+  <!-- overview -->
+  <div class="section">
+    <div class="section-label">Overview</div>
+    <div class="two-col">
+      <div>
+        <p style="font-size:13px; margin-bottom:16px;">PIP is a speculative wearable device designed to remove the friction from meeting people at events. Instead of awkward introductions or swapping details on phones, PIP uses a tap-to-connect interaction — two devices touch, a compatibility match is calculated, and a conversation starter is surfaced instantly.</p>
+        <p style="font-size:13px;">The project explores how physical interaction design can reduce social anxiety in high-density social environments, turning a passive accessory into an active social catalyst.</p>
+      </div>
+      <div>
+        <div style="border: 1px solid var(--border); padding: 28px;">
+          <div style="font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:16px;">Design Question</div>
+          <p style="font-size:15px; font-weight:700; line-height:1.5; letter-spacing:0.02em;">"How might we help strangers make new friends at company and business social events?"</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- insights -->
+  <div class="section">
+    <div class="section-label">Key Insights</div>
+    <div class="insight-grid">
+      <div class="insight-item">
+        <div class="insight-num">01</div>
+        <div class="insight-title">The real barrier is the first word</div>
+        <p class="insight-body">Interviews revealed a specific user: introverts who have no problem continuing a conversation — only starting one. Once the ice is broken, they thrive. PIP's job is just to break it.</p>
+      </div>
+      <div class="insight-item">
+        <div class="insight-num">02</div>
+        <div class="insight-title">Physical beats digital</div>
+        <p class="insight-body">A tap is more intentional than exchanging handles on a phone. The physical gesture creates a shared moment — a small ceremony that signals mutual willingness to connect.</p>
+      </div>
+      <div class="insight-item">
+        <div class="insight-num">03</div>
+        <div class="insight-title">Narrow your audience</div>
+        <p class="insight-body">Research surfaced several potential target groups. We committed to one: socially capable introverts at events. This focus sharpened every design decision that followed.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- live zine embed -->
+  <div class="section">
+    <div class="section-label">Interactive Zine</div>
+    <p style="font-size:13px; max-width:600px; margin-bottom:24px;">The concept is documented as an interactive digital zine — scroll through to explore the product vision, interaction model, and animated prototype.</p>
+    <div class="window-card">
+      <div class="window-bar">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+        <span class="window-title">PIP_ — Interactive Zine</span>
+      </div>
+      <iframe
+        src="pip-zine.html"
+        width="100%"
+        height="700px"
+        style="border:none; display:block;"
+        loading="lazy"
+        title="PIP Interactive Zine">
+      </iframe>
+      <div class="window-footer">
+        <span>Scroll to explore — interactive animations included</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- challenges -->
+  <div class="section">
+    <div class="section-label">Challenges</div>
+    <div class="two-col">
+      <div>
+        <p style="font-size:13px; margin-bottom:16px;">PIP is a hardware-software product, which meant designing under real technical uncertainty. The device was still being debugged during the design process — components were in flux, and there was no guarantee certain parts could be removed or replaced.</p>
+        <p style="font-size:13px;">The key constraint: the auto-wire mechanism had to remain intact. I had to design the cover and interaction model around a component I couldn't change, not the other way around. This pushed me to treat the hardware as a given and focus on what the interaction layer could do independently.</p>
+      </div>
+      <div>
+        <div style="border-top: 2px solid var(--ink); padding-top: 16px;">
+          <div style="font-size:10px; letter-spacing:0.08em; color:var(--accent); margin-bottom:8px;">Constraint</div>
+          <div style="font-weight:700; font-size:12px; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:8px;">Design around hardware, not for it</div>
+          <p style="font-size:11px; color:var(--muted); line-height:1.7;">Auto-wire had to stay. Cover design and interaction model had to work with it — an unusual constraint that required design thinking to run in parallel with engineering rather than after it.</p>
+        </div>
+        <div style="border-top: 1px solid var(--border); padding-top: 16px; margin-top: 24px;">
+          <div style="font-size:10px; letter-spacing:0.08em; color:var(--accent); margin-bottom:8px;">Research</div>
+          <div style="font-weight:700; font-size:12px; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:8px;">Interviews shaped the target</div>
+          <p style="font-size:11px; color:var(--muted); line-height:1.7;">User interviews were central. Multiple target groups were considered, but research kept pointing to one clear profile — introverts who can hold a conversation, but need help starting one.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- reflection -->
+  <div class="section">
+    <div class="section-label">Reflection</div>
+    <p style="font-size:13px; max-width:600px; margin-bottom:16px;">PIP explores the boundary between product design and interaction design — the device itself is simple, but the interaction model is carefully considered. The tap gesture is universal, low-barrier, and creates a shared moment between two people that a phone screen cannot replicate.</p>
+    <p style="font-size:13px; max-width:600px;">Working under technical constraints turned out to be a useful design exercise — it forced clarity about what the interaction layer needed to do on its own. Building the zine in HTML/Canvas also let me test how the animated interaction model would feel, discovering that the match reveal timing needed to be slower to land emotionally.</p>
+  </div>
+
+  <footer>
+    <span>© 2026 Sukanya Sripanha</span>
+    <a href="../index.html">Back to portfolio</a>
+  </footer>
+
+</body>
+</html>

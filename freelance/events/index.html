@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Event Production — Bb</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #ffffff; --ink: #1A1A18; --muted: #8A8A84;
+      --border: #C8C4BC; --accent: #C94C28; --mono: 'Space Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--mono); font-size: 13px; line-height: 1.7; }
+
+    .site-nav { display: flex; justify-content: space-between; align-items: center; padding: 28px 40px; border-bottom: 1px solid var(--border); }
+    .site-nav .logo { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.01em; text-decoration: none; color: var(--ink); text-transform: none; }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--muted); }
+    .nav-links a.back { color: var(--accent); }
+
+    .project-header { padding: 52px 40px 40px; max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; border-bottom: 1px solid var(--border); }
+    .project-num { font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+    .project-title { font-size: clamp(20px, 3vw, 32px); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.15; }
+    .meta-row { display: flex; gap: 20px; font-size: 11px; margin-bottom: 12px; }
+    .meta-label { width: 80px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; flex-shrink: 0; }
+
+    .section { max-width: 960px; margin: 0 auto; padding: 56px 40px; border-bottom: 1px solid var(--border); }
+    .section-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; }
+
+    /* role breakdown */
+    .role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 8px; }
+    .role-item { border-top: 2px solid var(--ink); padding-top: 16px; }
+    .role-title { font-weight: 700; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px; }
+    .role-body { font-size: 11px; color: var(--muted); line-height: 1.7; }
+
+    /* event list */
+    .event-list { margin-top: 8px; }
+    .event-row { display: grid; grid-template-columns: 1fr auto; gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--border); align-items: start; }
+    .event-row:first-child { border-top: 1px solid var(--border); }
+    .event-name { font-weight: 700; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 4px; }
+    .event-detail { font-size: 11px; color: var(--muted); }
+    .event-year { font-size: 10px; color: var(--muted); letter-spacing: 0.06em; white-space: nowrap; padding-top: 3px; }
+
+    footer { border-top: 1px solid var(--border); padding: 24px 40px; display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); }
+    footer a { color: var(--muted); text-decoration: none; }
+
+    @media (max-width: 700px) {
+      .site-nav, .project-header, .section { padding-left: 20px; padding-right: 20px; }
+      .project-header, .role-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <a class="logo" href="../../index.html">Bb</a>
+    <div class="nav-links">
+      <a href="../index.html">← Freelance</a>
+      <a class="back" href="../../index.html#projects">All Works</a>
+    </div>
+  </nav>
+
+  <header class="project-header">
+    <div>
+      <div class="project-num">Freelance — Event Production</div>
+      <h1 class="project-title">Artist<br>Relations</h1>
+    </div>
+    <div>
+      <div class="meta-row"><span class="meta-label">Role</span><span>Artist Relations Coordinator</span></div>
+      <div class="meta-row"><span class="meta-label">Year</span><span>2024</span></div>
+      <div class="meta-row"><span class="meta-label">Scale</span><span>Large-scale live events, international artists</span></div>
+      <div class="meta-row"><span class="meta-label">Location</span><span>Thailand</span></div>
+    </div>
+  </header>
+
+  <div class="section">
+    <div class="section-label">Overview</div>
+    <p style="font-size:13px; max-width:600px; margin-bottom:16px;">Coordination of artist relations across large-scale live events in Thailand, including the Mahorasop Festival. The role involved end-to-end communication and logistics management for artists — both local and international — from arrival through to performance.</p>
+    <p style="font-size:13px; max-width:600px;">Working as the bridge between artists, production teams, venue operations, and event management — with a focus on making every artist's experience seamless under live event pressure.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Responsibilities</div>
+    <div class="role-grid">
+      <div class="role-item">
+        <div class="role-title">Artist Logistics</div>
+        <p class="role-body">Coordinated transportation, hospitality, and movement for artists between venues, hotels, and backstage areas. Managed schedules and ensured artists arrived at the right place at the right time.</p>
+      </div>
+      <div class="role-item">
+        <div class="role-title">Backstage Liaison</div>
+        <p class="role-body">Served as the main point of contact backstage — communicating between artists, production managers, and stage crew to ensure smooth show delivery.</p>
+      </div>
+      <div class="role-item">
+        <div class="role-title">Communication</div>
+        <p class="role-body">Handled direct communication with artists and their management before and during events — covering riders, technical requirements, and last-minute changes.</p>
+      </div>
+      <div class="role-item">
+        <div class="role-title">Problem Solving</div>
+        <p class="role-body">Live events require constant real-time decision-making. Managed unexpected situations under pressure, coordinating with the event manager to resolve issues quickly.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Events</div>
+    <div class="event-list">
+      <div class="event-row">
+        <div>
+          <div class="event-name">Mahorasop Festival</div>
+          <p class="event-detail">Large-scale music festival, Thailand. Worked with international artists including Peach Pit (Canada). Managed full AR coordination from arrival to performance.</p>
+        </div>
+        <span class="event-year">2024</span>
+      </div>
+      <div class="event-row">
+        <div>
+          <div class="event-name">Additional Live Events</div>
+          <p class="event-detail">Various concerts and live shows across Thailand. Ongoing freelance coordination work across multiple event formats and scales.</p>
+        </div>
+        <span class="event-year">2024</span>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 Sukanya Sripanha</span>
+    <a href="../../index.html">Back to portfolio</a>
+  </footer>
+
+</body>
+</html>

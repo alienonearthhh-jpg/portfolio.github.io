@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Freelance — Bb</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --ink: #1A1A18;
+      --muted: #8A8A84;
+      --border: #C8C4BC;
+      --accent: #C94C28;
+      --mono: 'Space Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--mono); font-size: 13px; line-height: 1.7; }
+
+    .site-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .site-nav .logo {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 700; font-size: 22px; letter-spacing: -0.01em;
+      text-decoration: none; color: var(--ink); text-transform: none;
+    }
+    .site-nav .back {
+      font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none; color: var(--accent);
+    }
+    .site-nav .back:hover { opacity: .7; }
+
+    .page-header {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 52px 40px 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-title {
+      font-size: clamp(20px, 3vw, 32px);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .page-desc {
+      font-size: 13px;
+      max-width: 560px;
+      color: var(--muted);
+    }
+
+    /* editorial menu list */
+    .freelance-list {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .freelance-row {
+      display: grid;
+      grid-template-columns: 48px 1fr auto;
+      gap: 24px;
+      align-items: center;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+    }
+    .freelance-row:first-child { border-top: 1px solid var(--border); margin-top: 40px; }
+    .freelance-row:hover .row-title { color: var(--accent); }
+    .row-num { font-size: 10px; color: var(--muted); }
+    .row-title {
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .row-desc { font-size: 11px; color: var(--muted); margin-top: 4px; }
+    .row-tag {
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 60px;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--ink); }
+
+    @media (max-width: 700px) {
+      .site-nav, .page-header, .freelance-list { padding-left: 20px; padding-right: 20px; }
+      .freelance-row { grid-template-columns: 36px 1fr; }
+      .row-tag { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <a class="logo" href="../index.html">Bb</a>
+    <a class="back" href="../index.html#projects">← All Works</a>
+  </nav>
+
+  <div class="page-header">
+    <h1 class="page-title">Freelance &<br>Visual Work</h1>
+    <p class="page-desc">Photography, illustration, visual direction, and web work across music, sport, and independent creative projects — 2020 to present.</p>
+  </div>
+
+  <div class="freelance-list">
+
+    <a class="freelance-row" href="doorplant/index.html">
+      <span class="row-num">01</span>
+      <div>
+        <div class="row-title">Doorplant</div>
+        <p class="row-desc">Album covers, EP illustration, film band photography & music video — ongoing creative relationship with Bangkok guitar-pop band.</p>
+      </div>
+      <span class="row-tag">Photography · Illustration<br>2020–Present</span>
+    </a>
+
+    <a class="freelance-row" href="dr.reub/index.html">
+      <span class="row-num">02</span>
+      <div>
+        <div class="row-title">Artist Photography</div>
+        <p class="row-desc">Intimate portrait and editorial photography for independent music artists. Film and digital.</p>
+      </div>
+      <span class="row-tag">Photography<br>2020–Present</span>
+    </a>
+
+    <a class="freelance-row" href="events/index.html">
+      <span class="row-num">03</span>
+      <div>
+        <div class="row-title">Event — Artist Relations</div>
+        <p class="row-desc">AR coordination for large-scale live events including Mahorasop Festival. Logistics, artist liaison, backstage coordination.</p>
+      </div>
+      <span class="row-tag">Event Production<br>2024</span>
+    </a>
+
+    <a class="freelance-row" href="gss/index.html">
+      <span class="row-num">04</span>
+      <div>
+        <div class="row-title">Web Design & Copywriting</div>
+        <p class="row-desc">Digital content design, photography, and copywriting for Global Sportive Solutions and other clients.</p>
+      </div>
+      <span class="row-tag">Web · Copy<br>2020–Present</span>
+    </a>
+
+  </div>
+
+  <footer>
+    <span>© 2026 Sukanya Sripanha</span>
+    <a href="../index.html">Back to portfolio</a>
+  </footer>
+
+</body>
+</html>

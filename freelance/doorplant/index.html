@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doorplant — Bb</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --ink: #1A1A18;
+      --muted: #8A8A84;
+      --border: #C8C4BC;
+      --accent: #C94C28;
+      --mono: 'Space Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--mono); font-size: 13px; line-height: 1.7; }
+
+    /* ── nav ── */
+    .site-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .site-nav .logo {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      color: var(--ink);
+      text-transform: none;
+    }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.back { color: var(--accent); }
+    .nav-links a.back:hover { opacity: .7; }
+
+    /* ── header ── */
+    .project-header {
+      padding: 52px 40px 40px;
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: end;
+      border-bottom: 1px solid var(--border);
+    }
+    .project-num { font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+    .project-title { font-size: clamp(20px, 3vw, 32px); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.15; }
+    .project-meta { display: flex; flex-direction: column; gap: 12px; }
+    .meta-row { display: flex; gap: 20px; font-size: 11px; }
+    .meta-label { width: 80px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; flex-shrink: 0; }
+    .meta-val a { color: var(--ink); text-decoration: none; }
+    .meta-val a:hover { color: var(--accent); }
+
+    /* ── section ── */
+    .section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 56px 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    /* ── intro ── */
+    .intro-text p { font-size: 13px; margin-bottom: 16px; max-width: 600px; }
+    .intro-text p:last-child { margin-bottom: 0; }
+
+    /* ── releases grid ── */
+    .releases-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 8px;
+    }
+    .release-item {}
+    .release-label {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .release-title {
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .release-role {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .release-item iframe {
+      width: 100%;
+      border-radius: 0;
+      border: none;
+      display: block;
+    }
+
+    /* ── music video ── */
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      margin-top: 8px;
+      border: 1px solid var(--border);
+    }
+    .video-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+    .video-caption {
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* ── photo grid ── */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .photo-grid img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(0.2);
+      transition: filter .2s;
+    }
+    .photo-grid img:hover { filter: grayscale(0); }
+    .photo-grid .wide {
+      grid-column: span 2;
+      aspect-ratio: 16/9;
+    }
+
+    /* photo placeholder */
+    .photo-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: .04em;
+    }
+    .photo-placeholder.wide {
+      grid-column: span 2;
+      aspect-ratio: 16/9;
+    }
+
+    /* ── vinyl section ── */
+    .vinyl-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .vinyl-grid img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+    .vinyl-grid .tall {
+      aspect-ratio: 3/4;
+    }
+    .vinyl-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: .04em;
+    }
+
+    /* ── ig embed ── */
+    .ig-embed-wrap {
+      margin-top: 8px;
+      display: flex;
+      justify-content: center;
+      border: 1px solid var(--border);
+      padding: 24px;
+      background: #fafafa;
+    }
+
+    /* ── instagram note ── */
+    .ig-note {
+      margin-top: 24px;
+      padding: 20px 24px;
+      border: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ig-note span { font-size: 11px; color: var(--muted); }
+    .ig-note a {
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .ig-note a:hover { opacity: .7; }
+
+    /* ── footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--muted);
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--ink); }
+
+    /* ── responsive ── */
+    @media (max-width: 700px) {
+      .site-nav, .project-header, .section { padding-left: 20px; padding-right: 20px; }
+      .project-header { grid-template-columns: 1fr; }
+      .releases-grid { grid-template-columns: 1fr; }
+      .photo-grid { grid-template-columns: 1fr 1fr; }
+      .photo-grid .wide { grid-column: span 2; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- nav -->
+  <nav class="site-nav">
+    <a class="logo" href="../../index.html">Bb</a>
+    <div class="nav-links">
+      <a href="../index.html">← Freelance</a>
+      <a class="back" href="../../index.html#projects">All Works</a>
+    </div>
+  </nav>
+
+  <!-- header -->
+  <header class="project-header">
+    <div>
+      <div class="project-num">Freelance — Visual Work</div>
+      <h1 class="project-title">Door<br>plant</h1>
+    </div>
+    <div class="project-meta">
+      <div class="meta-row">
+        <span class="meta-label">Client</span>
+        <span class="meta-val">Doorplant — Bangkok guitar-pop band</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Period</span>
+        <span class="meta-val">2020 – Present</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Role</span>
+        <span class="meta-val">Photography · Illustration · Visual Direction</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Outputs</span>
+        <span class="meta-val">Album covers · EP artwork · Band photography · Music video</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Listen</span>
+        <span class="meta-val"><a href="https://open.spotify.com/artist/doorplant" target="_blank">Spotify ↗</a></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- intro -->
+  <div class="section">
+    <div class="section-label">Overview</div>
+    <div class="intro-text">
+      <p>An ongoing creative relationship with Doorplant, a Bangkok-based guitar-pop band known for their warm, analogue aesthetic. The work spans album cover photography and illustration, EP artwork, film band photography, and music video production.</p>
+      <p>The visual language across the releases draws on found imagery, film grain, and a deliberately unhurried sense of time — mirroring the band's sound.</p>
+    </div>
+  </div>
+
+  <!-- releases -->
+  <div class="section">
+    <div class="section-label">Releases</div>
+    <div class="releases-grid">
+
+      <div class="release-item">
+        <div class="release-label">Album</div>
+        <div class="release-title">PoP!? Plant</div>
+        <div class="release-role">Album cover photography · Art direction</div>
+        <iframe
+          src="https://open.spotify.com/embed/album/4f0ysLulasfBEBuMKAg1eQ?utm_source=generator&theme=0"
+          height="152"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy">
+        </iframe>
+      </div>
+
+      <div class="release-item">
+        <div class="release-label">EP</div>
+        <div class="release-title">Let Me Summer</div>
+        <div class="release-role">EP cover illustration</div>
+        <iframe
+          src="https://open.spotify.com/embed/album/0KDpxmxv2o0cvGIk17z567?utm_source=generator&theme=0"
+          height="152"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy">
+        </iframe>
+      </div>
+
+      <div class="release-item">
+        <div class="release-label">EP</div>
+        <div class="release-title">Strawberry Jam</div>
+        <div class="release-role">EP cover art</div>
+        <iframe
+          src="https://open.spotify.com/embed/album/00OQ88HfddxhAWop9MkWLv?utm_source=generator&theme=0"
+          height="152"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy">
+        </iframe>
+      </div>
+
+      <div class="release-item">
+        <div class="release-label">EP</div>
+        <div class="release-title">Wannabe Sad Song</div>
+        <div class="release-role">EP cover art</div>
+        <iframe
+          src="https://open.spotify.com/embed/album/7GPhrj2rvTB4wwqLX8UnzQ?utm_source=generator&theme=0"
+          height="152"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy">
+        </iframe>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- music video -->
+  <div class="section">
+    <div class="section-label">Music Video</div>
+    <div class="video-wrap">
+      <iframe
+        src="https://www.youtube.com/embed/mRx7BeC540I"
+        title="DOOR PLANT — เห้อ (OFFICIAL MV)"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <p class="video-caption">DOOR PLANT — เห้อ (Official Music Video)</p>
+  </div>
+
+  <!-- vinyl / instagram -->
+  <div class="section">
+    <div class="section-label">PoP!? Plant — Vinyl</div>
+    <p style="font-size:13px; max-width:600px; margin-bottom:28px; color:var(--muted);">Product photography for the PoP!? Plant 12" vinyl release, distributed via Big Romantic Records (Japan / overseas).</p>
+    <div class="ig-embed-wrap">
+      <blockquote
+        class="instagram-media"
+        data-instgrm-permalink="https://www.instagram.com/p/DVYVLAJgSKo/"
+        data-instgrm-version="14"
+        style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin:1px; max-width:540px; min-width:326px; padding:0; width:99.375%;">
+      </blockquote>
+      <script async src="//www.instagram.com/embed.js"></script>
+    </div>
+  </div>
+
+  <!-- film photography -->
+  <div class="section">
+    <div class="section-label">Film Photography</div>
+    <div class="photo-grid">
+      <!-- Replace these placeholders with your actual images -->
+      <!-- Example: <img src="000004.jpg" alt="Doorplant" /> -->
+      <!-- Add your chosen images from the DP folder here -->
+      <img src="000014.jpg" alt="Doorplant" />
+      <img src="000016-2.jpg" alt="Doorplant" class="wide" />
+      <img src="000018.jpg" alt="Doorplant" />
+      <img src="000023.jpg" alt="Doorplant" />
+      <img src="000024.jpg" alt="Doorplant" />
+      <img src="dp-3.png" alt="Doorplant" />
+      <img src="dp-9.png" alt="Doorplant" />
+    </div>
+
+    <div class="ig-note">
+      <span>More on Instagram</span>
+      <a href="https://www.instagram.com/alienated.tif/" target="_blank">@alienated.tif ↗</a>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 Sukanya Sripanha</span>
+    <a href="../../index.html">Back to portfolio</a>
+  </footer>
+
+</body>
+</html>

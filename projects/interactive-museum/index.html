@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Museum — Bb</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #ffffff;
+        --ink: #1A1A18;
+        --muted: #8A8A84;
+        --border: #C8C4BC;
+        --accent: #C94C28;
+        --mono: 'Space Mono', monospace;
+      }
+
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { background: var(--bg); color: var(--ink); font-family: var(--mono); font-size: 13px; line-height: 1.7; }
+
+      /* ── nav ── */
+      .site-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 28px 40px;
+        border-bottom: 1px solid var(--border);
+      }
+      .site-nav .logo {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-weight: 700;
+        font-size: 22px;
+        letter-spacing: -0.01em;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .site-nav .back {
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: var(--accent);
+      }
+      .site-nav .back:hover { opacity: .7; }
+
+      /* ── header ── */
+      .project-header {
+        padding: 52px 40px 40px;
+        max-width: 960px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        align-items: end;
+        border-bottom: 1px solid var(--border);
+      }
+      .project-num {
+        font-size: 10px;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+      .project-title {
+        font-size: clamp(20px, 3vw, 32px);
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        line-height: 1.15;
+      }
+      .project-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .meta-row {
+        display: flex;
+        gap: 20px;
+        font-size: 11px;
+      }
+      .meta-label {
+        width: 80px;
+        color: var(--muted);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        flex-shrink: 0;
+      }
+
+      /* ── description ── */
+      .project-desc {
+        padding: 40px 40px 0;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      .project-desc p {
+        max-width: 560px;
+        margin-bottom: 16px;
+        font-size: 13px;
+      }
+
+      /* ── instructions banner ── */
+      .instructions {
+        max-width: 960px;
+        margin: 32px auto 0;
+        padding: 0 40px;
+        display: flex;
+        gap: 32px;
+        font-size: 11px;
+        color: var(--muted);
+        letter-spacing: 0.04em;
+      }
+      .instructions span::before {
+        content: '→ ';
+        color: var(--accent);
+      }
+
+      /* ── sketch container ── */
+      .sketch-wrap {
+        margin: 24px 40px 0;
+        border: 1px solid var(--border);
+        background: #fff;
+        overflow: hidden;
+        position: relative;
+      }
+      .sketch-wrap canvas {
+        display: block;
+        width: 100% !important;
+      }
+
+      /* ── description grid ── */
+      .desc-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        align-items: center;
+      }
+      .desc-text p { margin-bottom: 16px; font-size: 13px; }
+      .desc-text p:last-child { margin-bottom: 0; }
+      .desc-gif {
+        width: 100%;
+        display: block;
+        border: 1px solid var(--border);
+      }
+      @media (max-width: 700px) {
+        .desc-grid { grid-template-columns: 1fr; }
+      }
+
+      /* ── process section ── */
+      .process {
+        max-width: 960px;
+        margin: 64px auto 0;
+        padding: 0 40px 80px;
+        border-top: 1px solid var(--border);
+        padding-top: 48px;
+      }
+      .process-title {
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 32px;
+      }
+      .process-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 40px;
+      }
+      .process-item .step {
+        font-size: 10px;
+        color: var(--accent);
+        letter-spacing: 0.08em;
+        margin-bottom: 6px;
+      }
+      .process-item .step-title {
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .process-item p { font-size: 11px; color: var(--muted); line-height: 1.7; }
+
+      /* ── footer ── */
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 24px 40px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 10px;
+        color: var(--muted);
+      }
+      footer a { color: var(--muted); text-decoration: none; }
+      footer a:hover { color: var(--ink); }
+
+      @media (max-width: 700px) {
+        .site-nav, .project-header, .project-desc, .instructions, .sketch-wrap, .process { padding-left: 20px; padding-right: 20px; }
+        .sketch-wrap { margin-left: 20px; margin-right: 20px; }
+        .project-header { grid-template-columns: 1fr; }
+        .process-grid { grid-template-columns: 1fr; }
+        .instructions { flex-direction: column; gap: 8px; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- nav -->
+    <nav class="site-nav">
+      <a class="logo" href="../index.html">Bb</a>
+      <a class="back" href="../index.html#projects">← All Works</a>
+    </nav>
+
+    <!-- project header -->
+    <header class="project-header">
+      <div>
+        <div class="project-num">Project 01</div>
+        <h1 class="project-title">Interactive<br>Museum</h1>
+      </div>
+      <div class="project-meta">
+        <div class="meta-row">
+          <span class="meta-label">Year</span>
+          <span>2025</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">Type</span>
+          <span>Interactive Media / Digital Experience Design</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">Tools</span>
+          <span>p5.js, JavaScript, Web Audio API</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">Context</span>
+          <span>Interactive Media — UTS</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- description -->
+    <div class="project-desc">
+      <div class="desc-grid">
+        <div class="desc-text">
+          <p>An immersive, browser-based museum experience that pairs classic artworks with ambient soundscapes. Visitors explore a gallery of eight paintings across four artists — Van Gogh, Monet, Hopper, and Nara — and interact with each work through a sliding puzzle mechanic.</p>
+          <p>The project explores how sound and interactivity can transform passive art viewing into an embodied experience. Each painter has a unique ambient sound environment that plays when the puzzle is engaged, creating an emotional layer tied to the work.</p>
+        </div>
+        <div class="desc-media">
+          <img src="narainmuseum.GIF" alt="Interactive Museum — Nara puzzle in motion" class="desc-gif" />
+        </div>
+      </div>
+    </div>
+
+    <!-- how to use -->
+    <div class="instructions">
+      <span>Click any painting to enter the puzzle</span>
+      <span>Slide tiles to reconstruct the image</span>
+      <span>Press ESC to return to the gallery</span>
+    </div>
+
+    <!-- live sketch -->
+    <div class="sketch-wrap" id="sketch-container">
+      <!-- p5 canvas mounts here -->
+    </div>
+
+    <!-- figma mockup -->
+    <div style="max-width:960px; margin:0 auto; padding:48px 40px 0; border-top:1px solid var(--border);">
+      <div style="font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:28px;">Figma Prototype — UI Design</div>
+      <p style="font-size:13px; max-width:600px; margin-bottom:24px;">The interaction was also designed in Figma — mapping the gallery view, difficulty levels, and puzzle states across a tablet interface.</p>
+      <div style="border:1px solid var(--border); overflow:hidden;">
+        <div style="display:flex; align-items:center; gap:6px; padding:8px 12px; background:#f0f0ee; border-bottom:1px solid var(--border);">
+          <div style="width:10px;height:10px;border-radius:50%;background:#ff5f57;flex-shrink:0;"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#febc2e;flex-shrink:0;"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#28c840;flex-shrink:0;"></div>
+          <span style="font-size:10px;color:var(--muted);letter-spacing:0.04em;margin-left:4px;">Immersive Museum — Figma Prototype</span>
+        </div>
+        <iframe
+          src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FORyxqWYAK9VGPVhUlHdBbL%2FImmersive-Museum%3Fnode-id%3D1-2%26p%3Df%26t%3DkkXgZ9nBI2iX3HNL-0%26scaling%3Dscale-down%26content-scaling%3Dfixed%26page-id%3D0%253A1%26starting-point-node-id%3D1%253A2"
+          width="100%" height="600px"
+          style="border:none;display:block;"
+          loading="lazy" allowfullscreen>
+        </iframe>
+        <div style="padding:12px 16px;border-top:1px solid var(--border);font-size:10px;color:var(--muted);display:flex;justify-content:space-between;align-items:center;">
+          <span>Click to interact with the prototype</span>
+          <a href="https://www.figma.com/proto/ORyxqWYAK9VGPVhUlHdBbL/Immersive-Museum?node-id=1-2&p=f&t=kkXgZ9nBI2iX3HNL-0&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A2" target="_blank" style="color:var(--accent);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;font-size:10px;">Open full screen ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- process notes -->
+    <section class="process">
+      <div class="process-title">Process</div>
+      <div class="process-grid">
+
+        <div class="process-item">
+          <div class="step">01</div>
+          <div class="step-title">Concept</div>
+          <p>Exploring how digital interfaces can create intimacy with art. The sliding puzzle forces close looking — you have to examine fragments before seeing the whole.</p>
+        </div>
+
+        <div class="process-item">
+          <div class="step">02</div>
+          <div class="step-title">Sound Design</div>
+          <p>Each ambient track was chosen to evoke the emotional register of each painter — restless for Van Gogh, quiet and aquatic for Monet, urban and lonely for Hopper.</p>
+        </div>
+
+        <div class="process-item">
+          <div class="step">03</div>
+          <div class="step-title">Interaction</div>
+          <p>The pixelation overlay on puzzle tiles references the visual breakdown of perception — how we see before we understand. Sound only starts after the first interaction, respecting browser autoplay rules.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <footer>
+      <span>© 2025 Sukanya Sripanha</span>
+      <a href="../index.html">Back to portfolio</a>
+    </footer>
+
+    <!-- p5 sketch inline — loads assets relative to this file -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/addons/p5.sound.min.js"></script>
+    <script>
+      // ── Mount sketch into #sketch-container ──────────────────
+      // We wrap the original sketch in an instance-mode p5 call
+      // and point the canvas at our div, so it doesn't take over <body>.
+
+      const sketchFn = (p) => {
+
+        let mode = "menu";
+        let currentIdx = -1;
+        let startedSound = false;
+        let thumbs = {};
+        let ambience = {};
+
+        const ARTWORKS = [
+          { key:"vangogh_portrait",  artist:"Vincent van Gogh", work:"Self-Portrait with Bandaged Ear",   img:"vangogh_portrait.jpg",  painterKey:"vangogh", caption:"Vincent van Gogh: Self-Portrait with Bandaged Ear, oil on canvas, 1889; Courtauld Institute of Art." },
+          { key:"monet_portrait",    artist:"Claude Monet",     work:"Self-portrait in a Beret",          img:"monet_portrait.jpg",    painterKey:"monet",   caption:"Claude Monet: Self-portrait in a Beret, oil on canvas; private collection." },
+          { key:"hopper_portrait",   artist:"Edward Hopper",    work:"Self-Portrait",                     img:"hopper_portrait.jpg",   painterKey:"hopper",  caption:"Edward Hopper: Self-Portrait, 1925–1930, oil on canvas." },
+          { key:"nara_portrait",     artist:"Yoshitomo Nara",   work:"Miss Moonlight",                    img:"nara_portrait.jpg",     painterKey:"nara",    caption:"Yoshitomo Nara, Miss Moonlight, 2020. Mori Art Museum, Tokyo." },
+          { key:"vangogh_starrynight",artist:"Vincent van Gogh",work:"The Starry Night",                  img:"vangogh_starrynight.jpg",painterKey:"vangogh", caption:"Vincent van Gogh: The Starry Night, oil on canvas, 1889; MoMA, New York." },
+          { key:"monet_bridge",      artist:"Claude Monet",     work:"Water Lilies and Japanese Bridge",  img:"monet_bridge.jpg",      painterKey:"monet",   caption:"Claude Monet: Water Lilies and Japanese Bridge, 1899; Princeton University Art Museum." },
+          { key:"hopper_nighthawks", artist:"Edward Hopper",    work:"Nighthawks",                        img:"hopper_nighthawks.jpg", painterKey:"hopper",  caption:"Edward Hopper: Nighthawks, 1942, oil on canvas; Art Institute of Chicago." },
+          { key:"nara_walkon",       artist:"Yoshitomo Nara",   work:"Walk On",                           img:"nara_walkon.jpg",       painterKey:"nara",    caption:"Yoshitomo Nara: Walk On; acrylic on canvas; private collection." }
+        ];
+
+        const AMBIENCE_FILES = { vangogh:"vangogh_ambience.mp3", monet:"monet_ambience.mp3", hopper:"hopper_ambience.mp3", nara:"nara_ambience.mp3" };
+
+        const GCOLS = 4, GROWS = 2;
+        let tiles = [];
+        const PUZZLE_SIZE = 3;
+        let board = [], emptyIdx = -1;
+        let puzzle = { x:0, y:0, w:0, h:0 };
+        const PIXEL_SCALE = 60;
+        let puzzleStartMs = 0, puzzleSolved = false, solvedTimeSec = 0;
+
+        function pixelStep(vw, vh) { return Math.max(3, Math.floor(Math.min(vw,vh)/PIXEL_SCALE)); }
+
+        p.preload = () => {
+          // Build absolute URL base from this page's location
+          const base = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+          p.soundFormats("mp3","ogg");
+          for (const a of ARTWORKS) thumbs[a.img] = p.loadImage(base + a.img);
+          for (const k in AMBIENCE_FILES) ambience[k] = p.loadSound(base + AMBIENCE_FILES[k]);
+        };
+
+        p.setup = () => {
+          const container = document.getElementById("sketch-container");
+          const cnv = p.createCanvas(container.offsetWidth, Math.min(window.innerHeight * 0.9, 900));
+          cnv.parent("sketch-container");
+          p.textFont("monospace");
+        };
+
+        p.windowResized = () => {
+          const container = document.getElementById("sketch-container");
+          p.resizeCanvas(container.offsetWidth, Math.min(window.innerHeight * 0.9, 900));
+        };
+
+        p.draw = () => { mode === "menu" ? drawGallery() : drawPuzzleScreen(); };
+
+        function drawGallery() {
+          p.background(255);
+          tiles = [];
+          const marginX = p.width * 0.06;
+          const contentW = p.width - marginX * 2;
+          p.fill(0); p.textAlign(p.LEFT, p.TOP); p.textSize(p.width < 500 ? 22 : 32);
+          p.text("IMMERSIVE\nMUSEUM", marginX, 36);
+          const gridTop = p.width < 500 ? 120 : 140;
+          const gap = 12;
+          const tileW = (contentW - gap*(GCOLS-1))/GCOLS;
+          const tileH = tileW * 0.75;
+          const capH = 56;
+          for (let r=0;r<GROWS;r++) {
+            for (let c=0;c<GCOLS;c++) {
+              const idx = r*GCOLS+c;
+              const a = ARTWORKS[idx];
+              const x = marginX + c*(tileW+gap);
+              const y = gridTop + r*(tileH+capH+20);
+              const img = thumbs[a.img];
+              if (img) drawImageCover(img, x, y, tileW, tileH);
+              p.noFill(); p.stroke(0,80); p.rect(x, y, tileW, tileH);
+              p.noStroke(); p.fill(0); p.textSize(10); p.textAlign(p.LEFT, p.TOP);
+              p.text(`${a.artist}\n${a.work}`, x, y+tileH+8, tileW, capH);
+              tiles.push({x,y,w:tileW,h:tileH,idx});
+            }
+          }
+        }
+
+        function drawImageCover(img,x,y,w,h) {
+          const iw=img.width,ih=img.height,boxR=w/h,imgR=iw/ih;
+          let sw,sh,sx,sy;
+          if(imgR>boxR){sh=ih;sw=ih*boxR;sx=(iw-sw)/2;sy=0;}
+          else{sw=iw;sh=iw/boxR;sx=0;sy=(ih-sh)/2;}
+          p.image(img,x,y,w,h,sx,sy,sw,sh);
+        }
+
+        p.mousePressed = () => {
+          if (mode==="menu") {
+            for (const t of tiles) {
+              if (p.mouseX>=t.x && p.mouseX<=t.x+t.w && p.mouseY>=t.y && p.mouseY<=t.y+t.h) { startPuzzle(t.idx); return; }
+            }
+          } else if (mode==="puzzle") { handlePuzzleClick(); }
+        };
+
+        p.keyPressed = () => {
+          if (mode==="puzzle" && p.key==="Escape") { stopAllAmbience(); mode="menu"; currentIdx=-1; }
+        };
+
+        function startPuzzle(idx) {
+          currentIdx=idx; mode="puzzle"; startedSound=false;
+          const s=Math.min(p.width*0.85,p.height*0.65);
+          puzzle.w=puzzle.h=s; puzzle.x=(p.width-s)/2; puzzle.y=130;
+          const n=PUZZLE_SIZE*PUZZLE_SIZE;
+          board=Array.from({length:n},(_,i)=>i); emptyIdx=n-1; board[emptyIdx]=-1;
+          shuffleLegal(100); puzzleSolved=false; solvedTimeSec=0; puzzleStartMs=p.millis();
+        }
+
+        function drawPuzzleScreen() {
+          p.background(255);
+          const art=ARTWORKS[currentIdx], img=thumbs[art.img];
+          p.fill(0); p.textAlign(p.LEFT,p.TOP); p.textSize(p.width<500?20:28);
+          p.text("SLIDING\nPUZZLE", puzzle.x, 36);
+          if (!img) return;
+          p.fill(0); p.textAlign(p.LEFT,p.TOP); p.textSize(11);
+          const liveSec=puzzleSolved?solvedTimeSec:((p.millis()-puzzleStartMs)/1000).toFixed(1);
+          p.text(`Time: ${liveSec}s`, puzzle.x, puzzle.y-20);
+          drawPuzzleTiles(img);
+          p.fill(0); p.textAlign(p.LEFT,p.TOP); p.textSize(11);
+          p.text(art.caption, puzzle.x, puzzle.y+puzzle.h+14, puzzle.w, 80);
+          p.textAlign(p.RIGHT,p.BOTTOM); p.fill(120); p.textSize(10);
+          p.text("ESC to return to museum", p.width-16, p.height-12);
+          if (puzzleSolved) drawSolvedOverlay();
+        }
+
+        function drawPuzzleTiles(img) {
+          const {x,y,w,h}=puzzle, tW=w/PUZZLE_SIZE, tH=h/PUZZLE_SIZE;
+          for (let i=0;i<board.length;i++) {
+            const bx=x+(i%PUZZLE_SIZE)*tW, by=y+Math.floor(i/PUZZLE_SIZE)*tH, id=board[i];
+            if (id===-1) continue;
+            const sx=(id%PUZZLE_SIZE)*(img.width/PUZZLE_SIZE), sy=Math.floor(id/PUZZLE_SIZE)*(img.height/PUZZLE_SIZE);
+            const sw=img.width/PUZZLE_SIZE, sh=img.height/PUZZLE_SIZE;
+            p.image(img,bx,by,tW,tH,sx,sy,sw,sh);
+            const step=pixelStep(w,h);
+            p.noStroke();
+            for (let py=0;py<tH;py+=step) {
+              for (let px=0;px<tW;px+=step) {
+                const u=p.map(px,0,tW,sx,sx+sw), v=p.map(py,0,tH,sy,sy+sh);
+                const c=img.get(Math.floor(u),Math.floor(v));
+                p.fill(p.red(c),p.green(c),p.blue(c),170); p.rect(bx+px,by+py,step,step);
+              }
+            }
+          }
+          p.noFill(); p.stroke(0,50); p.strokeWeight(2);
+          p.rect(puzzle.x-3,puzzle.y-3,puzzle.w+6,puzzle.h+6);
+        }
+
+        function handlePuzzleClick() {
+          if (currentIdx<0||puzzleSolved) return;
+          if (!startedSound) {
+            p.userStartAudio();
+            const painter=ARTWORKS[currentIdx].painterKey, s=ambience[painter];
+            stopAllAmbience();
+            if(s){s.loop();s.setVolume(0.3);}
+            startedSound=true;
+          }
+          const {x,y,w,h}=puzzle;
+          if(p.mouseX<x||p.mouseX>x+w||p.mouseY<y||p.mouseY>y+h) return;
+          const c=Math.floor((p.mouseX-x)/(w/PUZZLE_SIZE)), r=Math.floor((p.mouseY-y)/(h/PUZZLE_SIZE));
+          const i=r*PUZZLE_SIZE+c;
+          if(neighbors(emptyIdx).includes(i)){
+            swapTiles(i,emptyIdx);
+            if(!puzzleSolved&&isSolved()){puzzleSolved=true;solvedTimeSec=((p.millis()-puzzleStartMs)/1000).toFixed(1);}
+          }
+        }
+
+        function shuffleLegal(steps){for(let k=0;k<steps;k++){const nbs=neighbors(emptyIdx);swapTiles(emptyIdx,nbs[Math.floor(Math.random()*nbs.length)]);}}
+        function neighbors(i){const r=Math.floor(i/PUZZLE_SIZE),c=i%PUZZLE_SIZE,out=[];if(r>0)out.push((r-1)*PUZZLE_SIZE+c);if(r<PUZZLE_SIZE-1)out.push((r+1)*PUZZLE_SIZE+c);if(c>0)out.push(r*PUZZLE_SIZE+(c-1));if(c<PUZZLE_SIZE-1)out.push(r*PUZZLE_SIZE+(c+1));return out;}
+        function swapTiles(a,b){const t=board[a];board[a]=board[b];board[b]=t;if(board[a]===-1)emptyIdx=a;if(board[b]===-1)emptyIdx=b;}
+        function stopAllAmbience(){for(const k in ambience){const s=ambience[k];if(s&&s.isPlaying())s.stop();}}
+        function isSolved(){for(let i=0;i<board.length-1;i++)if(board[i]!==i)return false;return board[board.length-1]===-1;}
+
+        function drawSolvedOverlay(){
+          const {x,y,w,h}=puzzle;
+          p.noStroke(); p.fill(0,160); p.rect(x-3,y-3,w+6,h+6,8);
+          const cardW=Math.min(w*0.8,500),cardH=160,cx=x+w/2,cy=y+h/2;
+          p.push(); p.rectMode(p.CENTER);
+          p.drawingContext.shadowColor="rgba(0,0,0,0.18)"; p.drawingContext.shadowBlur=16; p.drawingContext.shadowOffsetY=6;
+          p.fill(255); p.noStroke(); p.rect(cx,cy,cardW,cardH,12); p.pop();
+          const padX=24,padY=20,boxX=cx-cardW/2+padX,boxY=cy-cardH/2+padY,boxW=cardW-padX*2;
+          p.fill(0); p.textAlign(p.CENTER,p.TOP); p.textStyle(p.BOLD); p.textSize(18);
+          p.text("Puzzle solved! (:","",boxY,cardW,48);
+          p.textStyle(p.NORMAL); p.textSize(14); p.fill(0);
+          p.text(`Time: ${solvedTimeSec}s`,cx,boxY+52,boxW,24);
+          p.fill(100); p.textSize(11); p.textAlign(p.CENTER,p.BOTTOM);
+          p.text("Press ESC to return to the museum",cx,cy+cardH/2-padY+2);
+        }
+      };
+
+      // Tell p5 to look for assets relative to this HTML file's location
+      const _p5inst = new p5(sketchFn);
+    </script>
+
+  </body>
+</html>

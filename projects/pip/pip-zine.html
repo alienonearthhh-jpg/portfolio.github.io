@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIP — Zine</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f0ede6;
+    --yellow: #f5e642;
+    --pink: #ff4d8d;
+    --green: #4dff91;
+    --blue: #4db8ff;
+    --purple: #c084fc;
+    --orange: #fb923c;
+    --grey: #2a2a2a;
+    --mid: #3a3a3a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Space Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  #nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 28px;
+    border-bottom: 1px solid var(--mid);
+    background: var(--black);
+  }
+
+  .logo {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    color: var(--yellow);
+    letter-spacing: 3px;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 2px;
+  }
+
+  .tab {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    padding: 6px 12px;
+    border: 1px solid var(--mid);
+    background: transparent;
+    color: var(--white);
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.12s;
+    opacity: 0.45;
+  }
+  .tab:hover { opacity: 1; border-color: var(--white); }
+  .tab.active { background: var(--yellow); color: var(--black); border-color: var(--yellow); opacity: 1; font-weight: 700; }
+
+  .nav-right {
+    font-size: 9px;
+    color: var(--green);
+    letter-spacing: 1px;
+  }
+
+  /* ── PAGES ── */
+  .page { display: none; min-height: 100vh; padding-top: 80px; }
+  .page.active { display: block; }
+
+  /* ══════════════════════════════
+     PAGE 1 — OBJECTIVE
+  ══════════════════════════════ */
+  #page-1.active { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+
+  .p1-left {
+    padding: 80px 44px 44px;
+    border-right: 1px solid var(--mid);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  .p1-right {
+    padding: 80px 44px 44px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+  }
+
+  .eyebrow {
+    font-size: 8px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 14px;
+  }
+
+  .big-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(18px, 2.8vw, 38px);
+    line-height: 1.55;
+    color: var(--yellow);
+  }
+
+  .pitch {
+    font-size: 12px;
+    line-height: 1.9;
+    opacity: 0.8;
+    max-width: 400px;
+    margin-top: 20px;
+  }
+
+  /* ASCII avatar cards */
+  .avatar-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+
+  .av-card {
+    border: 1px solid;
+    padding: 10px 8px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: default;
+    transition: transform 0.1s;
+    min-width: 68px;
+  }
+  .av-card:hover { transform: translateY(-3px); }
+
+  .av-art {
+    font-family: 'Space Mono', monospace;
+    font-size: 7px;
+    line-height: 1.3;
+    white-space: pre;
+    text-align: center;
+  }
+
+  .av-name {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 6px;
+    letter-spacing: 1px;
+  }
+
+  .av-mood {
+    font-size: 7px;
+    opacity: 0.6;
+    font-style: italic;
+  }
+
+  .quote-block {
+    border-left: 3px solid var(--pink);
+    padding: 14px 18px;
+    font-style: italic;
+    font-size: 11px;
+    line-height: 1.9;
+    opacity: 0.85;
+  }
+  .quote-block cite {
+    display: block;
+    margin-top: 8px;
+    font-style: normal;
+    font-size: 9px;
+    color: var(--pink);
+  }
+
+  .stat-block {
+    border: 1px solid var(--mid);
+    padding: 18px 20px;
+  }
+  .stat-label { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--mid); margin-bottom: 8px; }
+  .stat-val { font-family: 'Press Start 2P', monospace; font-size: 24px; }
+  .stat-desc { font-size: 10px; line-height: 1.8; opacity: 0.6; margin-top: 10px; }
+
+  /* ══════════════════════════════
+     PAGE 2 — HOW IT WORKS
+  ══════════════════════════════ */
+  #page-2 { padding: 80px 44px 60px; overflow-y: auto; }
+
+  .page-header {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    border-bottom: 1px solid var(--mid);
+    padding-bottom: 20px;
+    margin-bottom: 44px;
+  }
+
+  .page-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(14px, 2.2vw, 28px);
+    color: var(--yellow);
+  }
+
+  .badge {
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: var(--pink);
+    border: 1px solid var(--pink);
+    padding: 3px 9px;
+    text-transform: uppercase;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--mid);
+    border: 1px solid var(--mid);
+    margin-bottom: 28px;
+  }
+
+  .step {
+    background: var(--black);
+    padding: 36px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-height: 260px;
+    transition: background 0.12s;
+  }
+  .step:hover { background: var(--grey); }
+
+  .step-ascii {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    line-height: 1.4;
+    white-space: pre;
+    color: var(--yellow);
+  }
+
+  .step-num { font-size: 8px; color: var(--mid); letter-spacing: 1px; }
+
+  .step-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    color: var(--yellow);
+    line-height: 1.7;
+  }
+
+  .step-desc {
+    font-size: 10px;
+    line-height: 1.9;
+    opacity: 0.6;
+    margin-top: auto;
+  }
+
+  .placeholder-box {
+    border: 1px dashed var(--mid);
+    padding: 48px 40px;
+    text-align: center;
+    color: var(--mid);
+    font-size: 10px;
+    line-height: 2.2;
+    letter-spacing: 1px;
+  }
+
+  /* ══════════════════════════════
+     PAGE 3 — ABOUT US
+  ══════════════════════════════ */
+  #page-3 { padding: 80px 44px 60px; overflow-y: auto; }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--mid);
+    border: 1px solid var(--mid);
+    margin-bottom: 24px;
+  }
+
+  .member {
+    background: var(--black);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: background 0.12s;
+    cursor: default;
+  }
+  .member:hover { background: var(--grey); }
+
+  .member-ascii {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.5px;
+    line-height: 1.3;
+    white-space: pre;
+  }
+
+  .member-name {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    line-height: 1.7;
+  }
+
+  .member-role {
+    font-size: 9px;
+    opacity: 0.55;
+    line-height: 1.7;
+  }
+
+  .member-tag {
+    display: inline-block;
+    font-size: 7px;
+    padding: 2px 7px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+    font-family: 'Press Start 2P', monospace;
+  }
+
+  .about-note {
+    border: 1px solid var(--mid);
+    padding: 24px 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .about-note p { font-size: 10px; line-height: 1.9; opacity: 0.6; }
+
+  /* ══════════════════════════════
+     PAGE 4 — POTENTIALS
+  ══════════════════════════════ */
+  #page-4 { padding: 80px 44px 60px; overflow-y: auto; }
+
+  .pot-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--mid);
+    border: 1px solid var(--mid);
+    margin-bottom: 24px;
+  }
+
+  .pot-item {
+    background: var(--black);
+    padding: 36px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: background 0.12s;
+  }
+  .pot-item:hover { background: var(--grey); }
+
+  .pot-ascii {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    line-height: 1.4;
+    white-space: pre;
+    color: var(--green);
+  }
+
+  .pot-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    color: var(--green);
+    line-height: 1.6;
+  }
+
+  .pot-desc { font-size: 10px; line-height: 1.9; opacity: 0.6; }
+  .pot-tag { font-size: 8px; color: var(--pink); letter-spacing: 1px; text-transform: uppercase; margin-top: auto; }
+
+  .bottom-bar {
+    border: 1px solid var(--mid);
+    padding: 22px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+  .bottom-bar p { font-size: 10px; line-height: 1.9; opacity: 0.55; max-width: 560px; }
+  .made-by { font-family: 'Press Start 2P', monospace; font-size: 7px; color: var(--yellow); text-align: right; line-height: 2.2; white-space: nowrap; }
+
+  /* ══════════════════════════════
+     PAGE 5 — LINKS
+  ══════════════════════════════ */
+  #page-5 { padding: 80px 44px 60px; overflow-y: auto; }
+
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--mid);
+    border: 1px solid var(--mid);
+    margin-bottom: 24px;
+  }
+
+  .link-card {
+    background: var(--black);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: background 0.12s;
+  }
+  .link-card:hover { background: var(--grey); }
+
+  .link-ascii {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.5px;
+    line-height: 1.3;
+    white-space: pre;
+  }
+
+  .link-name {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    line-height: 1.7;
+  }
+
+  .link-role { font-size: 9px; opacity: 0.5; line-height: 1.6; margin-bottom: 4px; }
+
+  .link-list { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+
+  .link-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 9px;
+    text-decoration: none;
+    color: var(--white);
+    opacity: 0.65;
+    transition: opacity 0.1s;
+    border: 1px solid transparent;
+    padding: 4px 6px;
+  }
+  .link-item:hover { opacity: 1; border-color: var(--mid); }
+
+  .link-icon {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    white-space: pre;
+  }
+
+  .link-placeholder {
+    font-size: 9px;
+    opacity: 0.3;
+    font-style: italic;
+  }
+
+  .links-note {
+    border: 1px solid var(--mid);
+    padding: 20px 28px;
+    font-size: 10px;
+    line-height: 1.9;
+    opacity: 0.5;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    #nav { flex-wrap: wrap; gap: 8px; padding: 10px 16px; }
+    .tabs { gap: 2px; flex-wrap: wrap; justify-content: center; }
+    .tab { font-size: 8px; padding: 5px 8px; }
+    .nav-right { display: none; }
+    .logo { font-size: 10px; }
+
+    #page-1.active { grid-template-columns: 1fr; }
+    .p1-left { padding: 80px 20px 28px; border-right: none; border-bottom: 1px solid var(--mid); }
+    .p1-right { padding: 28px 20px 40px; }
+
+    #page-2, #page-3, #page-4 { padding: 80px 16px 48px; }
+
+    .steps-grid { grid-template-columns: 1fr; }
+    .step { min-height: auto; padding: 24px 20px; }
+
+    .pot-grid { grid-template-columns: 1fr; }
+    .pot-item { padding: 24px 20px; }
+
+    .links-grid { grid-template-columns: 1fr 1fr; }
+    .link-card { padding: 20px 16px; }
+
+    .about-note { grid-template-columns: 1fr; gap: 16px; padding: 18px 20px; }
+
+    .team-grid { grid-template-columns: 1fr 1fr; }
+    .member { padding: 20px 16px; }
+
+    .bottom-bar { flex-direction: column; gap: 16px; text-align: center; }
+    .made-by { text-align: center; }
+
+    .big-title { font-size: clamp(14px, 5vw, 28px); }
+    .page-title { font-size: clamp(12px, 4vw, 22px); }
+
+    .av-card { min-width: 56px; }
+    .av-art { font-size: 6px; }
+  }
+
+  @media (max-width: 480px) {
+    .tabs { gap: 1px; }
+    .tab { font-size: 7px; padding: 4px 6px; letter-spacing: 0; }
+    .links-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr; }
+    .avatar-row { gap: 6px; }
+    .av-card { min-width: 48px; }
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .blink { animation: blink 1.1s step-end infinite; }
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--mid); }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="logo">PIP<span class="blink">_</span></div>
+  <div class="tabs">
+    <button class="tab active"  onclick="goTo(1)">01 / Objective</button>
+    <button class="tab"         onclick="goTo(2)">02 / How It Works</button>
+    <button class="tab"         onclick="goTo(3)">03 / Potentials</button>
+    <button class="tab"         onclick="goTo(4)">04 / About Us</button>
+  </div>
+  <div class="nav-right">[SS16] UTS 2026<span class="blink"> ●</span></div>
+</nav>
+
+<!-- ══════════════ PAGE 1 ══════════════ -->
+<div class="page active" id="page-1">
+  <div class="p1-left">
+    <div>
+      <div class="eyebrow">01 — Objective + Concept + Research</div>
+      <div class="big-title">A wearable companion that makes connecting at events effortless.</div>
+      <p class="pitch">For many people, the hardest part of any event isn't the conversation — it's the first move. Pip is a wearable badge using NFC to remove that barrier. Tap devices, find your match, start talking.</p>
+
+      <div class="avatar-row">
+        <div class="av-card" style="border-color:var(--yellow); color:var(--yellow);">
+          <div class="av-art"
+> .---.
+(o . o)
+ \ ^ /
+ /|_|\</div>
+          <div class="av-name" style="color:var(--yellow);">ELVA</div>
+          <div class="av-mood">strategist</div>
+        </div>
+        <div class="av-card" style="border-color:var(--pink); color:var(--pink);">
+          <div class="av-art"> __|__
+[o + o]
+ \___/
+  | |</div>
+          <div class="av-name" style="color:var(--pink);">B</div>
+          <div class="av-mood">designer</div>
+        </div>
+        <div class="av-card" style="border-color:var(--green); color:var(--green);">
+          <div class="av-art">  /^^\
+ (x . x)
+  \vvv/
+  /| |\</div>
+          <div class="av-name" style="color:var(--green);">XINYI</div>
+          <div class="av-mood">hardware</div>
+        </div>
+        <div class="av-card" style="border-color:var(--blue); color:var(--blue);">
+          <div class="av-art"> .===.
+ |o_o |
+ |\_/ |
+ '---'</div>
+          <div class="av-name" style="color:var(--blue);">LLUVIA</div>
+          <div class="av-mood">design</div>
+        </div>
+        <div class="av-card" style="border-color:var(--orange); color:var(--orange);">
+          <div class="av-art">  /~~~\
+ (^ . ^)
+  )___(
+ /|   |\</div>
+          <div class="av-name" style="color:var(--orange);">EM</div>
+          <div class="av-mood">research</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      "I always have a line of anxiety — whether I can cross it or not. The device does its job of carrying me through that line — like a good friend beside me."
+      <cite>— H1, Round 2 prototype testing</cite>
+    </div>
+  </div>
+
+  <div class="p1-right">
+    <div class="eyebrow">The Problem + Research Foundation</div>
+
+    <div class="stat-block">
+      <div class="stat-label">The barrier</div>
+      <div class="stat-val" style="color:var(--pink); font-size:18px;">ENTRY, NOT CAPABILITY</div>
+      <div class="stat-desc">Introverted individuals are not less socially capable — initiating interaction simply requires more effort and carries a stronger expectation of negative outcomes (Wilt &amp; Revelle, 2009). The problem is starting, not sustaining.</div>
+    </div>
+
+    <div class="stat-block">
+      <div class="stat-label">Research finding — Li et al. 2025</div>
+      <div class="stat-val" style="color:var(--green); font-size:18px;">SIGNALS = CONNECTIONS</div>
+      <div class="stat-desc">Explicit signals of openness significantly increase the likelihood of strangers forming new connections by reducing uncertainty around whether interaction is welcome. Pip is that signal.</div>
+    </div>
+
+    <div class="stat-block">
+      <div class="stat-label">Concept — Tamir et al. 2024</div>
+      <div class="stat-val" style="color:var(--yellow); font-size:18px;">33% IS PLENTY</div>
+      <div class="stat-desc">"Even 10% is fine — I'd want to figure out what that 10% is. It feels a bit magical." (H1) — Stranger conversations become more enjoyable as people gradually establish common ground. Pip starts that process.</div>
+    </div>
+
+    <div class="stat-block">
+      <div class="stat-label">Our answer</div>
+      <div class="stat-val" style="color:var(--white); font-size:13px; line-height:1.6;">WEAR IT<br>TAP IT<br>MEET PEOPLE</div>
+      <div class="stat-desc">Badge-worn, NFC-tap to connect, compatibility score + conversation prompt. No awkward opener required.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PAGE 2 ══════════════ -->
+<div class="page" id="page-2">
+  <div class="page-header">
+    <div class="page-title">How It Works</div>
+    
+  </div>
+
+  <div class="steps-grid">
+    <div class="step">
+      <div class="step-ascii">  .-----.
+ | [:::] |
+ |  pip  |
+ '---+---'
+     |
+   [NFC]</div>
+      <div class="step-num">// 01</div>
+      <div class="step-title">BUILD YOUR PROFILE</div>
+      <div class="step-desc">Choose your pixel avatar, pick a colour, select up to 3 interest tags. Your Pip now represents you — without saying a word.</div>
+    </div>
+    <div class="step">
+      <div class="step-ascii">  [PIP A]    [PIP B]
+    |            |
+    +----tap-----+
+    |            |
+  ~~~~~NFC~~~~~</div>
+      <div class="step-num">// 02</div>
+      <div class="step-title">TAP TO CONNECT</div>
+      <div class="step-desc">Tap your badge against another attendee's. NFC registers instantly — familiar, like tapping a transit card.</div>
+    </div>
+    <div class="step">
+      <div class="step-ascii">  MATCH: 67%
+ +-----------+
+ | [*] books |
+ | [*] music |
+ | [ ] film  |
+ +-----------+
+ > "what r u reading?"</div>
+      <div class="step-num">// 03</div>
+      <div class="step-title">SEE YOUR MATCH</div>
+      <div class="step-desc">A compatibility % appears. Shared interests surface. A prompt gives you both a conversation starter. Even at 0%, a wildcard prompt still opens the door.</div>
+    </div>
+  </div>
+
+  <div style="border:1px solid var(--mid);position:relative;overflow:hidden;min-height:340px;">
+    <canvas id="pip-anim" style="display:block;width:100%;"></canvas>
+    <div style="position:absolute;bottom:14px;left:16px;font-family:'Space Mono',monospace;font-size:7px;color:var(--mid);letter-spacing:2px;">// LIVE SIMULATION</div>
+  </div>
+
+<script>
+window.addEventListener('load', function(){
+(function(){
+  const canvas = document.getElementById('pip-anim');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+
+  function resizeCanvas() {
+    W = canvas.parentElement.offsetWidth || 800;
+    H = Math.max(320, Math.min(440, Math.round(W * 0.5)));
+    canvas.width = W;
+    canvas.height = H;
+    canvas.style.height = H + 'px';
+    PIP.x = W / 2;
+    PIP.y = H / 2 - 10;
+    rebuildRing();
+  }
+
+  const C = {
+    black:'#0a0a0a',white:'#f0ede6',yellow:'#f5e642',pink:'#ff4d8d',
+    green:'#4dff91',blue:'#4db8ff',purple:'#c084fc',orange:'#fb923c',mid:'#3a3a3a',
+  };
+
+  const PALETTE  = [C.yellow,C.pink,C.green,C.blue,C.purple,C.orange,C.white,C.pink,C.green,C.yellow,C.blue,C.purple,C.orange,C.green,C.pink,C.blue,C.yellow,C.purple];
+  const LETTERS  = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','Q','R','S'];
+  const INTERESTS= ['music','film','design','coffee','photo','writing','travel','books','music','film','design','coffee','photo','travel','books','writing','film','music'];
+
+  function seededRand(seed){ let s=seed; return ()=>{ s=(s*16807)%2147483647; return (s-1)/2147483646; }; }
+  const R=seededRand(42); const CR=seededRand(77);
+
+  const N=18; const PIP={x:0,y:0}; const LOOP=30; let t0=null;
+  let RING=[];
+
+  const dots=[];
+  for(let i=0;i<N;i++){
+    dots.push({vx:(R()-0.5)*0.65,vy:(R()-0.5)*0.65,r:13,color:PALETTE[i],letter:LETTERS[i],interest:INTERESTS[i],x:0,y:0});
+  }
+
+  function rebuildRing(){
+    const cols=6,rows=3;
+    RING = dots.map((_,i)=>{
+      const col=i%cols,row=Math.floor(i/cols);
+      return{x:W*0.1+col*(W*0.8/(cols-1))+(CR()-0.5)*36, y:H*0.18+row*(H*0.64/(rows-1))+(CR()-0.5)*22};
+    });
+    // init dot positions if first time
+    if(dots[0].x===0){
+      const R2=seededRand(42);
+      dots.forEach(d=>{ d.x=70+R2()*(W-140); d.y=36+R2()*(H-72); });
+    }
+  }
+
+  window.addEventListener('resize', resizeCanvas);
+
+  function ease(t){return t<0.5?2*t*t:-1+(4-2*t)*t;}
+  function lerp(a,b,t){return a+(b-a)*t;}
+  function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v));}
+
+  function drawCircle(x,y,r,color,letter,alpha,filled){
+    ctx.save(); ctx.globalAlpha=alpha;
+    ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
+    if(filled){ctx.fillStyle=color+'22';ctx.fill();}
+    ctx.strokeStyle=color; ctx.lineWidth=1.2; ctx.stroke();
+    ctx.font=`bold ${Math.round(r*0.9)}px "Space Mono",monospace`;
+    ctx.fillStyle=color; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(letter,x,y+1);
+    ctx.restore();
+  }
+
+  function drawPip(px,py,pulseT,alpha){
+    const s=14;
+    ctx.save(); ctx.globalAlpha=alpha;
+    ctx.fillStyle=C.yellow+'18'; ctx.fillRect(px-s,py-s,s*2,s*2);
+    ctx.strokeStyle=C.yellow; ctx.lineWidth=1.4; ctx.strokeRect(px-s,py-s,s*2,s*2);
+    const t=4;
+    [[px-s,py-s],[px+s,py-s],[px-s,py+s],[px+s,py+s]].forEach(([cx,cy],i)=>{
+      const sx=i%2===0?1:-1,sy=i<2?1:-1;
+      ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+sx*t,cy);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx,cy+sy*t);ctx.stroke();
+    });
+    ctx.font='7px "Press Start 2P",monospace';
+    ctx.fillStyle=C.yellow;ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText('P',px,py+1);
+    ctx.restore();
+    if(pulseT>0){
+      for(let k=0;k<3;k++){
+        const rpt=clamp(pulseT-k*0.2,0,1);
+        const rr=rpt*80,a=(1-rpt)*0.4*alpha;
+        if(a<0.01)continue;
+        ctx.beginPath();ctx.arc(px,py,rr,0,Math.PI*2);
+        ctx.strokeStyle=C.yellow;ctx.lineWidth=0.7;ctx.globalAlpha=a;ctx.stroke();ctx.globalAlpha=1;
+      }
+    }
+  }
+
+  function drawTag(x,y,text,color,alpha){
+    if(alpha<0.02)return;
+    ctx.save();ctx.globalAlpha=alpha;
+    ctx.font='7px "Space Mono",monospace';
+    const label='['+text+']',tw=ctx.measureText(label).width+8;
+    ctx.fillStyle=C.black;ctx.fillRect(x+2,y-9,tw,13);
+    ctx.strokeStyle=color;ctx.lineWidth=0.6;ctx.strokeRect(x+2,y-9,tw,13);
+    ctx.fillStyle=color;ctx.fillText(label,x+6,y+1);
+    ctx.restore();
+  }
+
+  function drawBg(){
+    ctx.fillStyle=C.black;ctx.fillRect(0,0,W,H);
+    ctx.strokeStyle=C.mid;ctx.lineWidth=0.25;ctx.globalAlpha=0.25;
+    for(let x=0;x<W;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+    for(let y=0;y<H;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+    ctx.globalAlpha=1;
+    for(let y=0;y<H;y+=3){ctx.fillStyle=C.white;ctx.globalAlpha=0.018;ctx.fillRect(0,y,W,1);}
+    ctx.globalAlpha=1;
+  }
+
+  function phaseLabel(txt){
+    ctx.save();ctx.font='7px "Space Mono",monospace';
+    ctx.fillStyle=C.mid;ctx.globalAlpha=0.8;ctx.fillText(txt,14,18);ctx.restore();
+  }
+
+  function getPhase(elapsed){
+    const t=(elapsed%LOOP)/LOOP;
+    if(t<0.12)return{p:0,pt:t/0.12};           // strangers — 2.6s
+    if(t<0.23)return{p:1,pt:(t-0.12)/0.11};    // pip activates — 2.4s
+    if(t<0.35)return{p:2,pt:(t-0.23)/0.12};    // interests — 2.6s
+    if(t<0.60)return{p:3,pt:(t-0.35)/0.25};    // NFC tap — 5.5s (slow)
+    if(t<0.72)return{p:4,pt:(t-0.60)/0.12};    // connected — 2.6s
+    return      {p:5,pt:(t-0.72)/0.28};         // done — 6.2s (slow, readable)
+  }
+
+  function frame(ts){
+    if(!t0)t0=ts;
+    const elapsed=(ts-t0)/1000;
+    const{p,pt}=getPhase(elapsed);
+    drawBg();
+
+    if(p===0){
+      const words=['...','??','new here','alone','[idle]','first time','→?'];
+      dots.forEach((d,i)=>{
+        d.x+=d.vx;d.y+=d.vy;
+        if(d.x<30||d.x>W-30)d.vx*=-1;
+        if(d.y<20||d.y>H-20)d.vy*=-1;
+        drawCircle(d.x,d.y,d.r,d.color,d.letter,ease(clamp(pt*2,0,1))*0.45,false);
+        if(i<words.length&&pt>0.25){
+          ctx.save();ctx.font='7px "Space Mono",monospace';
+          ctx.fillStyle=d.color;ctx.globalAlpha=ease(clamp((pt-0.25)/0.75,0,1))*0.3;
+          ctx.fillText(words[i],d.x+d.r+5,d.y+3);ctx.restore();
+        }
+      });
+      phaseLabel('// 01 — STRANGERS');
+    }
+
+    else if(p===1){
+      dots.forEach(d=>{
+        d.x+=d.vx*0.45;d.y+=d.vy*0.45;
+        if(d.x<30||d.x>W-30)d.vx*=-1;
+        if(d.y<20||d.y>H-20)d.vy*=-1;
+        const dx=PIP.x-d.x,dy=PIP.y-d.y,dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<280&&pt>0.28){const pull=ease((pt-0.28)/0.72)*0.012;d.x+=dx*pull;d.y+=dy*pull;}
+        drawCircle(d.x,d.y,d.r,d.color,d.letter,0.5,false);
+      });
+      drawPip(PIP.x,PIP.y,pt,ease(clamp(pt*3,0,1)));
+      phaseLabel('// 02 — PIP ACTIVATES');
+    }
+
+    else if(p===2){
+      dots.forEach(d=>{d.x+=d.vx*0.15;d.y+=d.vy*0.15;});
+      for(let i=0;i<N-1;i++)for(let j=i+1;j<N;j++){
+        if(dots[i].interest===dots[j].interest){
+          const la=ease(clamp(pt*1.4,0,1))*0.28;
+          ctx.beginPath();ctx.moveTo(dots[i].x,dots[i].y);ctx.lineTo(dots[j].x,dots[j].y);
+          ctx.strokeStyle=dots[i].color;ctx.lineWidth=0.5;ctx.globalAlpha=la;ctx.stroke();ctx.globalAlpha=1;
+        }
+      }
+      const tagA=ease(clamp((pt-0.08)/0.92,0,1))*0.88;
+      dots.forEach(d=>{drawCircle(d.x,d.y,d.r,d.color,d.letter,0.8,true);drawTag(d.x+d.r+2,d.y,d.interest,d.color,tagA);});
+      drawPip(PIP.x,PIP.y,0.4,1);
+      phaseLabel('// 03 — INTERESTS SURFACE');
+    }
+
+    else if(p===3){
+      const d1=dots[0],d2=dots[4];
+      const tapE=ease(clamp(pt*1.3,0,1));
+      // all other dots fade to near invisible, no connections between them
+      dots.forEach((d,i)=>{
+        if(i!==0&&i!==4){
+          drawCircle(d.x,d.y,d.r,d.color,d.letter,0.08,false);
+        }
+      });
+      // only the two converging dots
+      const t1x=lerp(d1.x,PIP.x-20,tapE),t1y=lerp(d1.y,PIP.y,tapE);
+      const t2x=lerp(d2.x,PIP.x+20,tapE),t2y=lerp(d2.y,PIP.y,tapE);
+      // connection line between them as they approach
+      if(tapE>0.1){
+        ctx.beginPath();ctx.moveTo(t1x,t1y);ctx.lineTo(t2x,t2y);
+        ctx.strokeStyle=C.yellow;ctx.lineWidth=0.6;ctx.globalAlpha=tapE*0.3;ctx.stroke();ctx.globalAlpha=1;
+      }
+      drawCircle(t1x,t1y,d1.r,d1.color,d1.letter,0.95,true);
+      drawCircle(t2x,t2y,d2.r,d2.color,d2.letter,0.95,true);
+      if(pt>0.55){
+        const pp=(pt-0.55)/0.45;
+        ctx.beginPath();ctx.arc(PIP.x,PIP.y,pp*70,0,Math.PI*2);
+        ctx.strokeStyle=C.yellow;ctx.lineWidth=0.9;ctx.globalAlpha=(1-pp)*0.55;ctx.stroke();ctx.globalAlpha=1;
+      }
+      drawPip(PIP.x,PIP.y,pt>0.55?(pt-0.55)/0.45:0,1);
+      if(pt>0.62){
+        // fade in fast, hold, then fade out near end
+        const fadeIn = ease(clamp((pt-0.62)/0.15,0,1));
+        const fadeOut = pt>0.88 ? 1-clamp((pt-0.88)/0.12,0,1) : 1;
+        const ma = fadeIn * fadeOut;
+        ctx.save();ctx.textAlign='center';
+        ctx.font=`${Math.max(9,Math.round(W*0.012))}px "Press Start 2P",monospace`;
+        ctx.fillStyle=C.green;ctx.globalAlpha=ma;
+        ctx.fillText('MATCH: '+Math.round(67*ease(clamp((pt-0.62)/0.15,0,1)))+'%',PIP.x,PIP.y+52);
+        ctx.font='9px "Space Mono",monospace';
+        ctx.fillStyle=C.white;ctx.globalAlpha=ma*0.85;
+        ctx.fillText('"you both like film — what\'s one you\'d pass to each other?"',PIP.x,PIP.y+72);
+        ctx.restore();
+      }
+      phaseLabel('// 04 — NFC TAP');
+    }
+
+    else if(p===4){
+      dots.forEach((d,i)=>{d.x=lerp(d.x,RING[i].x,ease(pt)*0.1);d.y=lerp(d.y,RING[i].y,ease(pt)*0.1);});
+      for(let i=0;i<N-1;i++)for(let j=i+1;j<N;j++){
+        if(dots[i].interest===dots[j].interest){
+          ctx.beginPath();ctx.moveTo(dots[i].x,dots[i].y);ctx.lineTo(dots[j].x,dots[j].y);
+          ctx.strokeStyle=dots[i].color;ctx.lineWidth=0.5;ctx.globalAlpha=ease(pt)*0.28;ctx.stroke();ctx.globalAlpha=1;
+        }
+      }
+      dots.forEach(d=>drawCircle(d.x,d.y,d.r,d.color,d.letter,0.88,true));
+      drawPip(PIP.x,PIP.y,0,1);
+      phaseLabel('// 05 — CONNECTED');
+    }
+
+    else{
+      for(let i=0;i<N-1;i++)for(let j=i+1;j<N;j++){
+        if(dots[i].interest===dots[j].interest){
+          ctx.beginPath();ctx.moveTo(dots[i].x,dots[i].y);ctx.lineTo(dots[j].x,dots[j].y);
+          ctx.strokeStyle=dots[i].color;ctx.lineWidth=0.4;ctx.globalAlpha=0.22;ctx.stroke();ctx.globalAlpha=1;
+        }
+      }
+      dots.forEach(d=>drawCircle(d.x,d.y,d.r,d.color,d.letter,0.88,true));
+      drawPip(PIP.x,PIP.y,0,1);
+      const fa=ease(clamp(pt*2,0,1));
+      ctx.save();ctx.textAlign='center';
+      ctx.font=`${Math.max(13,Math.round(W*0.018))}px "Press Start 2P",monospace`;
+      ctx.fillStyle=C.yellow;ctx.globalAlpha=fa;
+      ctx.fillText('PIP',PIP.x,H-62);
+      ctx.font=`${Math.max(10,Math.round(W*0.013))}px "Space Mono",monospace`;
+      ctx.fillStyle=C.green;ctx.globalAlpha=fa*0.9;
+      ctx.fillText('// starting a conversation, made simpler.',PIP.x,H-38);
+      ctx.font='8px "Space Mono",monospace';
+      ctx.fillStyle=C.white;ctx.globalAlpha=fa*0.4;
+      ctx.fillText('wear it. tap it. start talking.',PIP.x,H-18);
+      ctx.restore();
+      phaseLabel('// 06 — DONE');
+    }
+
+    requestAnimationFrame(frame);
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  requestAnimationFrame(frame);
+})();
+}); // end window load
+</script>
+</div>
+
+<!-- ══════════════ PAGE 3 — POTENTIALS ══════════════ -->
+<div class="page" id="page-3">
+  <div class="page-header">
+    <div class="page-title">What's Next</div>
+    <div class="badge">// future directions</div>
+  </div>
+
+  <div class="pot-grid">
+    <div class="pot-item">
+      <div class="pot-ascii">[ tag: books ]
+[ tag: music ]
+[ tag: ????? ]
+ > customise</div>
+      <div class="pot-title">CUSTOMISABLE PROMPT SETS</div>
+      <div class="pot-desc">Replace interest tags with context-specific prompts — career goals, skills, project pitches. Pip adapts for professional conferences, hackathons, or job fairs beyond social events.</div>
+      <div class="pot-tag">→ context-switching</div>
+    </div>
+
+    <div class="pot-item">
+      <div class="pot-ascii">  BPM: ---
+  [private]
+  vvv~~~^^^
+  only u see</div>
+      <div class="pot-title">BIOFEEDBACK (OPT-IN)</div>
+      <div class="pot-desc">A gentle vibration or private visual cue when social energy is high — not broadcast to others, but a personal signal to pace yourself through an event. Always opt-in, never public.</div>
+      <div class="pot-tag">→ internal regulation</div>
+    </div>
+
+    <div class="pot-item">
+      <div class="pot-ascii">  * . * . *
+ . [o] . [o]
+  * . [o] .
+ [o] . * .
+  * . * . *</div>
+      <div class="pot-title">COLLECTIVE PRESENCE MAP</div>
+      <div class="pot-desc">Already available in Pip — avatars cluster by shared interests in real time. A future direction: pairing this with BLE beacons or UWB anchors to surface rough room location, so you can see not just who shares your interests, but roughly where in the space they are.</div>
+      <div class="pot-tag">→ BLE / UWB · spatial awareness</div>
+    </div>
+
+    <div class="pot-item">
+      <div class="pot-ascii">[ Name ₍ᐢ..ᐢ₎ ⊹ ]
+ /hat/ /cape/
+message: hello ♡ᵕ̈</div>
+      <div class="pot-title">DEEPER AVATAR IDENTITY</div>
+      <div class="pot-desc">Expand avatar customisation — choose accessories, expressions, and animated states from a full library upfront. Your avatar is yours from the start. The goal is self-expression, not achievement.</div>
+      <div class="pot-tag">→ self-expression · identity</div>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <p>Pip is a working NFC prototype. Every decision — from the badge form factor to the wildcard prompt — was shaped by real user research with introverted participants across two testing rounds at UTS.</p>
+    <div class="made-by">PIP<br>SWEET 16<br>UTS 2026<br><span style="color:var(--green); font-family:'Space Mono',monospace;">▓▓▓▓▓▓</span></div>
+  </div>
+</div>
+
+<!-- ══════════════ PAGE 4 — ABOUT US (team + links) ══════════════ -->
+<div class="page" id="page-4">
+  <div class="page-header">
+    <div class="page-title">About Us</div>
+    <div class="badge">Sweet 16 · UTS · 42070 · Autumn 2026</div>
+  </div>
+
+  <div class="about-note" style="margin-bottom: 1px;">
+    <p>Pip was developed over five sprints as part of 42070 Prototyping Physical Interaction at UTS. Through user research, paper prototyping, hardware development, and usability testing with real participants, the project evolved into a wearable device designed to support social connection.</p>
+    <p>Combining research, interaction design, engineering, and visual identity, Pip explores how technology can act as a social catalyst — helping people take the first step, not replacing the conversation itself.</p>
+  </div>
+
+  <div class="links-grid" style="margin-top: 1px;">
+
+    <div class="link-card">
+      <div class="link-ascii" style="color:var(--yellow);">  .-----.
+ ( ELVA  )
+  \ ^ ^ /
+  (_____)
+  |  |  |</div>
+      <div class="link-name" style="color:var(--yellow);">ELVA YAPUTRA</div>
+      <div class="link-role">Concept Development · User Journey · Interaction Logic</div>
+      <span class="member-tag" style="background:var(--yellow); color:var(--black);">Strategist</span>
+      <div class="link-list">
+        <a class="link-item" href="https://www.linkedin.com/in/elvayaputra/" target="_blank"><span class="link-icon">[in]</span> LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="link-card">
+      <div class="link-ascii" style="color:var(--pink);">  .-----.
+ (   B   )
+  \ o o /
+  (_____)
+  |  |  |</div>
+      <div class="link-name" style="color:var(--pink);">B SRIPANHA</div>
+      <div class="link-role">Enclosure & 3D Design · User Research · Visual Direction</div>
+      <span class="member-tag" style="background:var(--pink); color:var(--white);">Design + Research</span>
+      <div class="link-list">
+        <a class="link-item" href="https://www.linkedin.com/in/sukanya-sripanha-1b5aa01a3/" target="_blank"><span class="link-icon">[in]</span> LinkedIn</a>
+        <a class="link-item" href="https://github.com/alienonearthhh-jpg" target="_blank"><span class="link-icon">[gh]</span> GitHub</a>
+      </div>
+    </div>
+
+    <div class="link-card">
+      <div class="link-ascii" style="color:var(--green);">  .-----.
+ ( XINYI )
+  \ - - /
+  (_____)
+  |  |  |</div>
+      <div class="link-name" style="color:var(--green);">XINYI</div>
+      <div class="link-role">Hardware · Code · Electronics</div>
+      <span class="member-tag" style="background:var(--green); color:var(--black);">Hardware Dev</span>
+      <div class="link-list">
+        <span class="link-placeholder">// no linkedin</span>
+      </div>
+    </div>
+
+    <div class="link-card">
+      <div class="link-ascii" style="color:var(--blue);">  .-----.
+ (LLUVIA )
+  \ . . /
+  (_____)
+  |  |  |</div>
+      <div class="link-name" style="color:var(--blue);">LLUVIA CHENG</div>
+      <div class="link-role">Research · Interview · Paper Prototype</div>
+      <span class="member-tag" style="background:var(--blue); color:var(--black);">Research</span>
+      <div class="link-list">
+        <a class="link-item" href="https://www.linkedin.com/in/yuxuan-cheng-b46951387" target="_blank"><span class="link-icon">[in]</span> LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="link-card">
+      <div class="link-ascii" style="color:var(--purple);">  .-----.
+ ( EVLYN )
+  \ ^ ^ /
+  (_____)
+  |  |  |</div>
+      <div class="link-name" style="color:var(--purple);">EVELYN</div>
+      <div class="link-role">Product Manager</div>
+      <span class="member-tag" style="background:var(--purple); color:var(--white);">PM</span>
+      <div class="link-list">
+        <span class="link-placeholder">// no linkedin</span>
+      </div>
+    </div>
+
+    <div class="link-card">
+      <div class="link-ascii" style="color:var(--orange);">  .-----.
+ (  EM   )
+  \ - - /
+  (_____)
+  |  |  |</div>
+      <div class="link-name" style="color:var(--orange);">ONVARA P.</div>
+      <div class="link-role">Research · Interview · Paper Prototype</div>
+      <span class="member-tag" style="background:var(--orange); color:var(--black);">Research</span>
+      <div class="link-list">
+        <a class="link-item" href="https://www.linkedin.com/in/emme-d-5185722a9" target="_blank"><span class="link-icon">[in]</span> LinkedIn</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="links-note" style="margin-top:1px; border:1px solid var(--mid); padding:20px 28px; font-size:9px; line-height:2; opacity:0.5;">
+    // references<br>
+    Wilt, J., &amp; Revelle, W. (2009). Extraversion. In M. R. Leary &amp; R. H. Hoyle (Eds.), <em>Handbook of Individual Differences in Social Behavior</em>. Guilford Press.<br>
+    Li, Y., et al. (2025). Openness signals and stranger connection. <em>Journal of Social Psychology.</em><br>
+    Tamir, D. I., et al. (2024). Common ground in stranger conversations. <em>Psychological Science.</em>
+  </div>
+</div>
+
+<script>
+  function goTo(n) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('page-' + n).classList.add('active');
+    document.querySelectorAll('.tab')[n - 1].classList.add('active');
+    window.scrollTo(0, 0);
+  }
+</script>
+</body>
+</html>

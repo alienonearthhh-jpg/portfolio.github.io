@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PetConnect — Bb</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --ink: #1A1A18;
+      --muted: #8A8A84;
+      --border: #C8C4BC;
+      --accent: #C94C28;
+      --mono: 'Space Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--mono); font-size: 13px; line-height: 1.7; }
+
+    /* ── nav ── */
+    .site-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .site-nav .logo {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      color: var(--ink);
+      text-transform: none;
+    }
+    .site-nav .back {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--accent);
+    }
+    .site-nav .back:hover { opacity: .7; }
+
+    /* ── project header ── */
+    .project-header {
+      padding: 52px 40px 40px;
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: end;
+      border-bottom: 1px solid var(--border);
+    }
+    .project-num { font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+    .project-title { font-size: clamp(20px, 3vw, 32px); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.15; }
+    .project-meta { display: flex; flex-direction: column; gap: 12px; }
+    .meta-row { display: flex; gap: 20px; font-size: 11px; }
+    .meta-label { width: 80px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; flex-shrink: 0; }
+
+    /* ── section wrapper ── */
+    .section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 56px 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-of-type { border-bottom: none; }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    /* ── intro ── */
+    .intro-text { max-width: 600px; }
+    .intro-text p { font-size: 13px; margin-bottom: 16px; }
+    .intro-text p:last-child { margin-bottom: 0; }
+
+    /* ── skills strip ── */
+    .skills-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      margin-top: 32px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+    }
+    .skill-tag {
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+    }
+
+    /* ── two col ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .two-col-wide {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* ── insight blocks ── */
+    .insight-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 32px;
+      margin-top: 8px;
+    }
+    .insight-item { border-top: 2px solid var(--ink); padding-top: 16px; }
+    .insight-num { font-size: 10px; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 8px; }
+    .insight-title { font-weight: 700; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px; line-height: 1.4; }
+    .insight-body { font-size: 11px; color: var(--muted); line-height: 1.7; }
+
+    /* ── design principles ── */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 8px;
+    }
+    .principle-item { padding: 24px; border: 1px solid var(--border); }
+    .principle-num { font-size: 10px; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 8px; }
+    .principle-title { font-weight: 700; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 6px; }
+    .principle-body { font-size: 11px; color: var(--muted); line-height: 1.7; }
+
+    /* ── journey ── */
+    .journey-row {
+      display: grid;
+      grid-template-columns: 1fr 40px 1fr;
+      gap: 0;
+      margin-top: 8px;
+    }
+    .journey-col { display: flex; flex-direction: column; gap: 0; }
+    .journey-col-label {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .journey-step {
+      padding: 12px 0;
+      font-size: 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .journey-step.active { color: var(--ink); font-weight: 700; }
+    .journey-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--border);
+      padding-top: 40px;
+    }
+
+    /* ── figma embed ── */
+    .figma-wrap {
+      width: 100%;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-top: 8px;
+      position: relative;
+      background: #f5f5f5;
+    }
+    .figma-wrap iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      display: block;
+    }
+    .figma-fallback {
+      padding: 48px 40px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .figma-fallback a {
+      color: var(--accent);
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 2px;
+    }
+
+    /* ── persona card ── */
+    .persona-card {
+      border: 1px solid var(--border);
+      padding: 32px;
+    }
+    .persona-name { font-size: 18px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 4px; }
+    .persona-role { font-size: 11px; color: var(--muted); margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .persona-section-title { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; margin-top: 20px; }
+    .persona-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .persona-list li { font-size: 11px; padding-left: 12px; position: relative; }
+    .persona-list li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+
+    /* ── reflection ── */
+    .reflection-text { max-width: 640px; }
+    .reflection-text p { font-size: 13px; margin-bottom: 16px; }
+    .reflection-text p:last-child { margin-bottom: 0; }
+
+    /* ── footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--muted);
+      max-width: 100%;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--ink); }
+
+    /* ── responsive ── */
+    @media (max-width: 500px) {
+      .site-nav, .project-header, .section { padding-left: 20px; padding-right: 20px; }
+      .project-header { grid-template-columns: 1fr; }
+      .two-col, .two-col-wide, .insight-grid, .principles-grid { grid-template-columns: 1fr; }
+      .journey-row { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- nav -->
+  <nav class="site-nav">
+    <a class="logo" href="../index.html">Bb</a>
+    <a class="back" href="../index.html#projects">← All Works</a>
+  </nav>
+
+  <!-- header -->
+  <header class="project-header">
+    <div>
+      <div class="project-num">Project 02</div>
+      <h1 class="project-title">Pet<br>Connect</h1>
+    </div>
+    <div class="project-meta">
+      <div class="meta-row">
+        <span class="meta-label">Year</span>
+        <span>2025</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Type</span>
+        <span>UX / UI Design — Networked App + Smart Collar</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Context</span>
+        <span>Fundamentals of Interaction Design — UTS</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Role</span>
+        <span>Interaction Designer — Hi-Fi Prototype & UI Design</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Team</span>
+        <span>Group project (user research shared; lo-fi & hi-fi by B)</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 01 overview -->
+  <div class="section">
+    <div class="section-label">01 — Overview</div>
+    <div class="two-col-wide">
+      <div class="intro-text">
+        <p>PetConnect is a mobile app that uses pets as a bridge for meaningful human connection. Designed for remote workers, pet owners, and future pet owners, the app creates opportunities for companionship, community interaction, and responsible pet ownership.</p>
+        <p>The brief asked us to design a <em>networked technology to support wellbeing at home</em>. Our group focused on social wellbeing — specifically the loneliness that comes with remote work — and designed a two-component system: a mobile app paired with a smart pet collar.</p>
+
+        <div class="skills-strip">
+          <span class="skill-tag">User Research</span>
+          <span class="skill-tag">Human-Centred Design</span>
+          <span class="skill-tag">UX Strategy</span>
+          <span class="skill-tag">User Journey Mapping</span>
+          <span class="skill-tag">Information Architecture</span>
+          <span class="skill-tag">Wireframing</span>
+          <span class="skill-tag">Hi-Fi Prototyping</span>
+          <span class="skill-tag">UI Design</span>
+          <span class="skill-tag">Figma</span>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:center;">
+        <img src="hero.png" alt="PetConnect app — Explore screen" style="width:75%; display:block;" />
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 problem -->
+  <div class="section">
+    <div class="section-label">02 — Problem Space</div>
+    <div class="two-col">
+      <div>
+        <p style="font-size:13px; margin-bottom:16px;">As remote work becomes more common, people experience fewer spontaneous social interactions. Many miss the casual everyday moments of connection that used to happen naturally.</p>
+        <p style="font-size:13px; margin-bottom:16px;">At the same time, many people are drawn to pet ownership but hesitate due to uncertainty about lifestyle compatibility and long-term responsibility.</p>
+      </div>
+      <div style="border-left: 2px solid var(--ink); padding-left: 28px;">
+        <div style="font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:12px;">Design Question</div>
+        <p style="font-size:15px; font-weight:700; line-height:1.5; letter-spacing:0.02em;">"How might we use pets as a bridge to create meaningful connections between people while supporting responsible pet ownership?"</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 research -->
+  <div class="section">
+    <div class="section-label">03 — Research & Insights</div>
+    <div class="insight-grid">
+      <div class="insight-item">
+        <div class="insight-num">Insight 01</div>
+        <div class="insight-title">People want companionship, not just pets</div>
+        <p class="insight-body">Users associate pets with emotional support, daily routine, and motivation to go outside — not just animal ownership.</p>
+      </div>
+      <div class="insight-item">
+        <div class="insight-num">Insight 02</div>
+        <div class="insight-title">Starting conversations with strangers is hard</div>
+        <p class="insight-body">People want social connections but traditional networking feels uncomfortable. Pets naturally create conversation opportunities.</p>
+      </div>
+      <div class="insight-item">
+        <div class="insight-num">Insight 03</div>
+        <div class="insight-title">Pet ownership feels like a big commitment</div>
+        <p class="insight-body">Future owners want to understand responsibilities before deciding. Low-stakes exposure helps build confidence.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 persona -->
+  <div class="section">
+    <div class="section-label">04 — User Persona</div>
+    <div class="two-col">
+      <div class="persona-card">
+        <div class="persona-name">Sophie Williams</div>
+        <div class="persona-role">28 · Graphic Designer · Fully remote worker</div>
+        <div class="persona-section-title">Goals</div>
+        <ul class="persona-list">
+          <li>Create more offline interactions</li>
+          <li>Spend time with animals</li>
+          <li>Meet like-minded people</li>
+          <li>Understand pet ownership before committing</li>
+        </ul>
+        <div class="persona-section-title">Pain Points</div>
+        <ul class="persona-list">
+          <li>Feels isolated working from home</li>
+          <li>Limited natural opportunities to meet new people</li>
+          <li>Wants a dog but worries about the commitment</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:13px; margin-bottom:16px;">Sophie represents a growing group of remote workers who are socially capable but structurally isolated — they don't lack the desire to connect, they lack the context.</div>
+        <div style="font-size:13px; color:var(--muted);">PetConnect gives Sophie a low-pressure reason to go outside, meet people, and gradually understand what pet ownership actually looks like day-to-day.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 journey -->
+  <div class="section">
+    <div class="section-label">05 — User Journey</div>
+    <div class="journey-row">
+      <div class="journey-col">
+        <div class="journey-col-label">Before PetConnect</div>
+        <div class="journey-step active">Working from home</div>
+        <div class="journey-step active">Limited daily interactions</div>
+        <div class="journey-step active">Feels disconnected</div>
+        <div class="journey-step active">Wants companionship</div>
+        <div class="journey-step active">Interested in pets but uncertain</div>
+      </div>
+      <div class="journey-arrow">→</div>
+      <div class="journey-col">
+        <div class="journey-col-label">With PetConnect</div>
+        <div class="journey-step active">Discovers nearby pets & owners</div>
+        <div class="journey-step active">Connects with pet owners</div>
+        <div class="journey-step active">Joins pet-friendly events</div>
+        <div class="journey-step active">Experiences companionship</div>
+        <div class="journey-step active">Builds community confidence</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 design strategy -->
+  <div class="section">
+    <div class="section-label">06 — Design Strategy</div>
+    <div class="principles-grid">
+      <div class="principle-item">
+        <div class="principle-num">01</div>
+        <div class="principle-title">Low Pressure Connection</div>
+        <p class="principle-body">Interactions feel natural rather than forced. The app provides context (a shared pet) so conversation doesn't require effort.</p>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">02</div>
+        <div class="principle-title">Pets as Social Bridges</div>
+        <p class="principle-body">Pets become conversation starters and shared interests — reducing the awkwardness of meeting strangers.</p>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">03</div>
+        <div class="principle-title">Trust Before Commitment</div>
+        <p class="principle-body">Future owners learn through real experiences — spending time with pets before making a long-term decision.</p>
+      </div>
+      <div class="principle-item">
+        <div class="principle-num">04</div>
+        <div class="principle-title">Community Over Social Media</div>
+        <p class="principle-body">Focused on belonging and real-world meetups rather than follower counts or performative sharing.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 prototype -->
+  <div class="section">
+    <div class="section-label">07 — Prototype</div>
+    <p style="font-size:13px; max-width:600px; margin-bottom:28px;">The hi-fidelity prototype follows a warm minimalist design language — rounded components, soft colours, photography-led storytelling, and friendly interface language. Below is the live Figma prototype — click through to explore the app.</p>
+
+    <div class="figma-wrap">
+      <iframe
+        src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FD2cF939vkPN0e9K0C5UhAw%2FPet-Connect--Copy-%3Fnode-id%3D24-26%26p%3Df%26t%3DzkZn84RvGOVsm3WU-1%26scaling%3Dscale-down%26content-scaling%3Dfixed%26page-id%3D0%253A1"
+        allowfullscreen
+        loading="lazy">
+      </iframe>
+      <div style="padding: 12px 16px; border-top: 1px solid var(--border); font-size:10px; color:var(--muted); display:flex; justify-content:space-between; align-items:center;">
+        <span>Interactive prototype — click to explore</span>
+        <a href="https://www.figma.com/proto/D2cF939vkPN0e9K0C5UhAw/Pet-Connect--Copy-?node-id=24-26&p=f&t=zkZn84RvGOVsm3WU-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1" target="_blank" style="color:var(--accent); text-decoration:none; letter-spacing:0.06em; text-transform:uppercase; font-size:10px;">Open full screen ↗</a>
+      </div>
+    </div>
+
+    <div style="margin-top:40px;">
+      <div style="font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:20px;">Prototype Development</div>
+      <div class="two-col">
+        <div>
+          <div style="font-weight:700; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:8px;">Lo-Fi</div>
+          <p style="font-size:11px; color:var(--muted);">Focused on user flow, navigation structure, and content hierarchy. Sketched individually to explore the information architecture before committing to visual decisions.</p>
+        </div>
+        <div>
+          <div style="font-weight:700; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:8px;">Hi-Fi</div>
+          <p style="font-size:11px; color:var(--muted);">Built in Figma with a focus on emotional experience, visual trust, and community feeling. Designed and executed by B for the final group submission.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 08 reflection -->
+  <div class="section">
+    <div class="section-label">08 — Reflection</div>
+    <div class="reflection-text">
+      <p>This project showed me that interaction design goes beyond creating usable interfaces. Small decisions — the tone of a button label, the way a notification arrives, the order of steps in an onboarding flow — can influence how comfortable, safe, and connected people feel.</p>
+      <p>The central challenge was designing technology that encourages people to spend less time on their phones and more time in meaningful offline experiences. That tension shaped every design decision.</p>
+      <p>Working through the full HCD process — from research to wireframes to hi-fi — strengthened my understanding of designing for emotions, translating user needs into concrete interactions, and balancing digital convenience with physical presence.</p>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 Sukanya Sripanha</span>
+    <a href="../index.html">Back to portfolio</a>
+  </footer>
+
+</body>
+</html>

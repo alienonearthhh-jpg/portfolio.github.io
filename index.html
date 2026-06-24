@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sukanya Sripanha — Interaction Design</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── tokens ─────────────────────────────────── */
+    :root {
+      --bg:        #FFFFFF;
+      --ink:       #1A1A18;
+      --muted:     #8A8A84;
+      --border:    #C8C4BC;
+      --accent:    #C94C28;
+      --mono:      'Space Mono', monospace;
+    }
+
+    /* ─── reset ──────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.7;
+      
+    }
+
+    /* ─── page wrapper ───────────────────────────── */
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ─── nav ────────────────────────────────────── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 32px 0 0;
+      letter-spacing: 0.08em;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+    .nav-logo {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.01em;
+      line-height: 1;
+      text-transform: none;
+    }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a {
+      color: var(--ink);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ─── hero ───────────────────────────────────── */
+    .hero {
+      padding: 80px 0 60px;
+    }
+    .hero-title {
+      font-size: clamp(20px, 3.2vw, 36px);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1.15;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .hero-subtitle {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    /* ─── work list ──────────────────────────────── */
+    .work-list {
+      position: relative;
+      min-height: 340px;
+    }
+    .work-item {
+      position: absolute;
+      line-height: 1.5;
+    }
+    .work-item .num {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .work-item .title {
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .work-item .meta {
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .work-item a {
+      text-decoration: none;
+      color: inherit;
+    }
+    .work-item a:hover .title { color: var(--accent); }
+
+    /* cascading diagonal positions */
+    .work-item:nth-child(1) { left: 0;    top: 0; }
+    .work-item:nth-child(2) { left: 28%;  top: 80px; }
+    .work-item:nth-child(3) { left: 0;    top: 190px; }
+    .work-item:nth-child(4) { left: 28%;  top: 270px; }
+
+    /* ─── portrait cluster ───────────────────────── */
+    .portrait-cluster {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-end;
+    }
+    .portrait-cluster .cluster-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      text-align: right;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+    .portrait-cluster .cluster-links a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .portrait-cluster .cluster-links a:hover { opacity: .7; }
+
+    .img-placeholder {
+      width: 72px;
+      height: 60px;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: var(--muted);
+      letter-spacing: .04em;
+      text-align: center;
+    }
+
+    /* ─── divider ────────────────────────────────── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ─── section shared ─────────────────────────── */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 32px;
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .section-nav {
+      display: flex;
+      gap: 24px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .section-nav a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .section-nav a:hover { opacity: .7; }
+
+    /* ─── about ──────────────────────────────────── */
+    #about { padding: 72px 0 80px; }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .about-text p { margin-bottom: 16px; font-size: 13px; }
+    .about-text p:last-child { margin-bottom: 0; }
+
+    .photo-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .04em;
+    }
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      filter: grayscale(1);
+      display: block;
+    }
+
+    /* ─── education grid ─────────────────────────── */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px 48px;
+      margin-top: 40px;
+    }
+    .edu-item .year {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      margin-bottom: 3px;
+    }
+    .edu-item .school {
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      line-height: 1.5;
+    }
+    .edu-item .degree {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+      line-height: 1.5;
+    }
+
+    /* ─── skills strip ───────────────────────────── */
+    .skills-strip {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .skills-label {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 24px;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+    }
+    .skills-list span {
+      color: var(--ink);
+    }
+
+    /* ─── projects ───────────────────────────────── */
+    #projects { padding: 72px 0 80px; }
+
+    .project-list {
+      margin-top: 40px;
+    }
+    .project-row {
+      display: grid;
+      grid-template-columns: 48px 1fr auto;
+      align-items: start;
+      gap: 20px;
+      padding: 28px 0;
+      border-top: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+    }
+    .project-row:last-child { border-bottom: 1px solid var(--border); }
+    .project-row:hover .project-title { color: var(--accent); }
+    .project-num {
+      font-size: 10px;
+      color: var(--muted);
+      padding-top: 4px;
+    }
+    .project-title {
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .project-desc {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+      max-width: 500px;
+      line-height: 1.7;
+    }
+    .project-tag {
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding-top: 4px;
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    /* ─── contact ────────────────────────────────── */
+    #contact { padding: 72px 0 80px; }
+
+    .contact-body {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .contact-row {
+      display: flex;
+      gap: 32px;
+      font-size: 12px;
+    }
+    .contact-label {
+      width: 100px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      flex-shrink: 0;
+      text-transform: uppercase;
+      font-size: 10px;
+      padding-top: 2px;
+    }
+    .contact-val a {
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .contact-val a:hover { color: var(--accent); }
+
+    /* ─── footer ─────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0 40px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--ink); }
+
+    /* ─── responsive ─────────────────────────────── */
+    @media (max-width: 700px) {
+      .page { padding: 0 20px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .edu-grid { grid-template-columns: 1fr; gap: 24px; }
+      .work-list { min-height: 520px; }
+      .work-item:nth-child(1) { left: 0; top: 0; }
+      .work-item:nth-child(2) { left: 0; top: 110px; }
+      .work-item:nth-child(3) { left: 0; top: 220px; }
+      .work-item:nth-child(4) { left: 0; top: 330px; }
+      .portrait-cluster { display: none; }
+      .project-row { grid-template-columns: 36px 1fr; }
+      .project-tag { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     SECTION 1 — LANDING / WORKS
+════════════════════════════════════════ -->
+<section id="works">
+  <div class="page">
+    <nav>
+      <span class="nav-logo">Bb</span>
+      <div class="nav-links">
+        <a href="#about">About Me</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <h1 class="hero-title">
+        I'm B<br>
+        Interaction Designer
+      </h1>
+      <p class="hero-subtitle">Sukanya Sripanha — Sydney, NSW</p>
+
+      <div style="position: relative;">
+        <div class="work-list">
+
+          <div class="work-item">
+            <div class="num">1</div>
+            <a href="projects/interactive-museum/index.html">
+              <div class="title">Interactive Museum</div>
+              <div class="meta">Interactive Media — 2025</div>
+            </a>
+          </div>
+
+          <div class="work-item">
+            <div class="num">2</div>
+            <a href="projects/pet-connect/index.html">
+              <div class="title">Pet Connect</div>
+              <div class="meta">Fundamentals of Interaction Design — 2025</div>
+            </a>
+          </div>
+
+          <div class="work-item">
+            <div class="num">3</div>
+            <a href="projects/pip/index.html">
+              <div class="title">PIP</div>
+              <div class="meta">Digital Experience Design — 2025</div>
+            </a>
+          </div>
+
+          <div class="work-item">
+            <div class="num">4</div>
+            <a href="freelance/index.html">
+              <div class="title">Visual & Brand Work</div>
+              <div class="meta">Freelance — 2020–Present</div>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- portrait cluster — replace img-placeholder with <img src="your-photo.jpg"> -->
+        <div class="portrait-cluster">
+          <img src="assets/1.jpg" style="width:72px;height:60px;object-fit:cover;filter:grayscale(1);display:block;" />
+          <img src="assets/2.jpg" style="width:72px;height:60px;object-fit:cover;filter:grayscale(1);display:block;" />
+          <img src="assets/3.jpg" style="width:72px;height:60px;object-fit:cover;object-position:bottom;filter:grayscale(1);display:block;" />
+          <div class="cluster-links">
+            <a href="#about">About Me</a>
+            <a href="#contact">Contacts</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <span>© 2026 Sukanya Sripanha</span>
+      <span>Sydney, NSW</span>
+    </footer>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ════════════════════════════════════════
+     SECTION 2 — ABOUT
+════════════════════════════════════════ -->
+<section id="about">
+  <div class="page">
+    <div style="padding-top: 40px;">
+      <div class="section-header">
+        <h2 class="section-title">About Me</h2>
+        <nav class="section-nav">
+          <a href="#works">Works</a>
+          <a href="#contact">Contacts</a>
+        </nav>
+      </div>
+
+      <div class="about-grid">
+        <div>
+          <div class="about-text">
+            <p>I'm a multidisciplinary designer and interaction design master's student at UTS, with a background that spans marketing, visual communication, and event production. I'm drawn to the space where design meets people — building experiences that are grounded, considered, and human.</p>
+            <p>My practice is informed by film photography and a careful eye for visual storytelling. I bring creative rigour and collaborative energy to every project — and I'm always learning.</p>
+          </div>
+
+          <!-- Education -->
+          <div style="margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border);">
+            <h3 class="section-title" style="font-size: 15px; margin-bottom: 28px;">Education</h3>
+            <div class="edu-grid">
+
+              <div class="edu-item">
+                <div class="year">Present</div>
+                <div class="school">Master of Interaction Design</div>
+                <div class="degree">University of Technology Sydney</div>
+              </div>
+
+              <div class="edu-item">
+                <div class="year">2019 – 2022</div>
+                <div class="school">BSc Management (Marketing)</div>
+                <div class="degree">The University of Manchester</div>
+              </div>
+
+              <div class="edu-item">
+                <div class="year">2018 – 2019</div>
+                <div class="school">DipHE Business Management & Finance</div>
+                <div class="degree">Bellerbys College, Brighton</div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Skills -->
+          <div class="skills-strip">
+            <div class="skills-label">Skills & Tools</div>
+            <div class="skills-list">
+              <span>Film Photography</span>
+              <span>Visual Storytelling</span>
+              <span>Layout & Visual Communication</span>
+              <span>Adobe Illustrator</span>
+              <span>Adobe Lightroom</span>
+              <span>Procreate</span>
+              <span>Marketing Coordination</span>
+              <span>Event Coordination</span>
+              <span>Human-Centred Design</span>
+              <span>Digital Experience Design</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo — swap placeholder for <img class="about-photo" src="your-photo.jpg" alt="Sukanya Sripanha"> -->
+        <img class="about-photo" src="assets/main.png" alt="Sukanya Sripanha" />
+      </div>
+    </div>
+
+    <footer>
+      <span>© 2026 Sukanya Sripanha</span>
+      <span>Sydney, NSW</span>
+    </footer>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ════════════════════════════════════════
+     SECTION 3 — PROJECTS
+════════════════════════════════════════ -->
+<section id="projects">
+  <div class="page">
+    <div style="padding-top: 40px;">
+      <div class="section-header">
+        <h2 class="section-title">Works</h2>
+        <nav class="section-nav">
+          <a href="#about">About</a>
+          <a href="#contact">Contacts</a>
+        </nav>
+      </div>
+
+      <div class="project-list">
+
+        <a class="project-row" href="projects/interactive-museum/index.html">
+          <span class="project-num">01</span>
+          <div>
+            <div class="project-title">Interactive Museum</div>
+            <p class="project-desc">An immersive browser-based museum pairing classic artworks with ambient soundscapes and a sliding puzzle mechanic.</p>
+          </div>
+          <span class="project-tag">Interactive Media<br>2025</span>
+        </a>
+
+        <a class="project-row" href="projects/pet-connect/index.html">
+          <span class="project-num">02</span>
+          <div>
+            <div class="project-title">Pet Connect</div>
+            <p class="project-desc">A networked mobile app + smart collar system that uses pets as a bridge for meaningful human connection — designed for remote workers experiencing social isolation.</p>
+          </div>
+          <span class="project-tag">UX / UI Design<br>2025</span>
+        </a>
+
+        <a class="project-row" href="projects/pip/index.html">
+          <span class="project-num">03</span>
+          <div>
+            <div class="project-title">PIP</div>
+            <p class="project-desc">A speculative wearable device that makes connecting at events effortless — tap to connect, surface a match, start a real conversation.</p>
+          </div>
+          <span class="project-tag">Product Design<br>2025</span>
+        </a>
+
+        <a class="project-row" href="freelance/index.html">
+          <span class="project-num">04</span>
+          <div>
+            <div class="project-title">Visual & Brand Work</div>
+            <p class="project-desc">Freelance photography, illustration, and digital asset design for artists, events, and independent creative projects — including album covers and music videos.</p>
+          </div>
+          <span class="project-tag">Freelance<br>2020–Present</span>
+        </a>
+
+      </div>
+    </div>
+
+    <footer>
+      <span>© 2026 Sukanya Sripanha</span>
+      <span>Sydney, NSW</span>
+    </footer>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ════════════════════════════════════════
+     SECTION 4 — CONTACT
+════════════════════════════════════════ -->
+<section id="contact">
+  <div class="page">
+    <div style="padding-top: 40px; padding-bottom: 80px;">
+      <div class="section-header">
+        <h2 class="section-title">Contact</h2>
+        <nav class="section-nav">
+          <a href="#works">Works</a>
+          <a href="#about">About</a>
+        </nav>
+      </div>
+
+      <div class="contact-body">
+        <div class="contact-row">
+          <span class="contact-label">Email</span>
+          <span class="contact-val">
+            <a href="mailto:sukanya.sripanha@gmail.com">sukanya.sripanha@gmail.com</a>
+          </span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">Instagram</span>
+          <span class="contact-val">
+            <a href="https://www.instagram.com/alienated.tif/" target="_blank">@alienated.tif</a>
+          </span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">Portfolio</span>
+          <span class="contact-val">
+            <a href="#" target="_blank">your portfolio link</a>
+          </span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">Based in</span>
+          <span class="contact-val">Sydney, NSW — open to remote</span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">Languages</span>
+          <span class="contact-val">Thai (native) · English (C1) · German (A2)</span>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <span>© 2026 Sukanya Sripanha</span>
+      <span>Sydney, NSW</span>
+    </footer>
+  </div>
+</section>
+
+</body>
+</html>

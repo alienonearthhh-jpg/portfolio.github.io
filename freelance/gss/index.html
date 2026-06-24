@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Global Sportive Solutions — Bb</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #ffffff; --ink: #1A1A18; --muted: #8A8A84;
+      --border: #C8C4BC; --accent: #C94C28; --mono: 'Space Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--mono); font-size: 13px; line-height: 1.7; }
+
+    .site-nav { display: flex; justify-content: space-between; align-items: center; padding: 28px 40px; border-bottom: 1px solid var(--border); }
+    .site-nav .logo { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.01em; text-decoration: none; color: var(--ink); text-transform: none; }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--muted); }
+    .nav-links a.back { color: var(--accent); }
+
+    .project-header { padding: 52px 40px 40px; max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; border-bottom: 1px solid var(--border); }
+    .project-num { font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+    .project-title { font-size: clamp(20px, 3vw, 32px); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.15; }
+    .meta-row { display: flex; gap: 20px; font-size: 11px; margin-bottom: 12px; }
+    .meta-label { width: 80px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; flex-shrink: 0; }
+
+    .section { max-width: 960px; margin: 0 auto; padding: 56px 40px; border-bottom: 1px solid var(--border); }
+    .section-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; }
+
+    /* deliverables */
+    .deliverables-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 8px; }
+    .deliverable-item { border: 1px solid var(--border); padding: 24px; }
+    .deliverable-num { font-size: 10px; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 8px; }
+    .deliverable-title { font-weight: 700; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 6px; }
+    .deliverable-body { font-size: 11px; color: var(--muted); line-height: 1.7; }
+
+    /* screenshot windows */
+    .screens-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 8px; }
+    .window-card { border: 1px solid var(--border); overflow: hidden; }
+    .window-bar { display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #f0f0ee; border-bottom: 1px solid var(--border); }
+    .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .dot.red { background: #ff5f57; }
+    .dot.yellow { background: #febc2e; }
+    .dot.green { background: #28c840; }
+    .window-title { font-size: 10px; color: var(--muted); letter-spacing: 0.04em; margin-left: 4px; }
+    .window-card img { width: 100%; display: block; object-fit: cover; }
+    .placeholder { width: 100%; aspect-ratio: 16/10; background: var(--border); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--muted); }
+    .window-caption { padding: 10px 12px; font-size: 10px; color: var(--muted); border-top: 1px solid var(--border); }
+
+    .window-card iframe { display: block; }
+
+    footer { border-top: 1px solid var(--border); padding: 24px 40px; display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); }
+    footer a { color: var(--muted); text-decoration: none; }
+
+    @media (max-width: 700px) {
+      .site-nav, .project-header, .section { padding-left: 20px; padding-right: 20px; }
+      .project-header, .deliverables-grid, .screens-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav">
+    <a class="logo" href="../../index.html">Bb</a>
+    <div class="nav-links">
+      <a href="../index.html">← Freelance</a>
+      <a class="back" href="../../index.html#projects">All Works</a>
+    </div>
+  </nav>
+
+  <header class="project-header">
+    <div>
+      <div class="project-num">Freelance — Web & Content</div>
+      <h1 class="project-title">Global<br>Sportive<br>Solutions</h1>
+    </div>
+    <div>
+      <div class="meta-row"><span class="meta-label">Client</span><span>Global Sportive Solutions</span></div>
+      <div class="meta-row"><span class="meta-label">Period</span><span>2020 – Present</span></div>
+      <div class="meta-row"><span class="meta-label">Role</span><span>Web Content Design · Photography · Copywriting</span></div>
+      <div class="meta-row"><span class="meta-label">Tools</span><span>Adobe Illustrator · Photoshop · Canva</span></div>
+    </div>
+  </header>
+
+  <div class="section">
+    <div class="section-label">Overview</div>
+    <p style="font-size:13px; max-width:600px; margin-bottom:16px;">Ongoing freelance creative work for Global Sportive Solutions — a sports-focused organisation. The scope covered digital content design, web photography, and copywriting, all aligned to brand guidelines.</p>
+    <p style="font-size:13px; max-width:600px;">The work required translating brand identity into digital assets across multiple formats, from web content to event-related visuals.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Deliverables</div>
+    <div class="deliverables-grid">
+      <div class="deliverable-item">
+        <div class="deliverable-num">01</div>
+        <div class="deliverable-title">Web Content Design</div>
+        <p class="deliverable-body">Designed digital assets and visual layouts for the website, applying brand guidelines to ensure consistent visual identity across all pages.</p>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-num">02</div>
+        <div class="deliverable-title">Photography</div>
+        <p class="deliverable-body">Produced photography for web and digital use — event coverage, product, and editorial imagery suited to the brand's sports and lifestyle positioning.</p>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-num">03</div>
+        <div class="deliverable-title">Copywriting</div>
+        <p class="deliverable-body">Wrote and edited copy for web pages, newsletters, and digital updates — clear, brand-aligned writing for a professional audience.</p>
+      </div>
+      <div class="deliverable-item">
+        <div class="deliverable-num">04</div>
+        <div class="deliverable-title">Digital Assets</div>
+        <p class="deliverable-body">Created promotional visuals and illustrations using Adobe Illustrator, Photoshop, and Canva to support campaigns and content distribution.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live website embed -->
+  <div class="section">
+    <div class="section-label">Website</div>
+    <p style="font-size:13px; max-width:600px; margin-bottom:24px;">The full website, embedded live — scroll through to explore the design.</p>
+    <div class="window-card" style="border: 1px solid var(--border);">
+      <div class="window-bar">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+        <span class="window-title">Global Sportive Solutions</span>
+      </div>
+      <iframe
+        src="gss-site.html"
+        width="100%"
+        height="700px"
+        style="border:none; display:block;"
+        loading="lazy"
+        title="Global Sportive Solutions website">
+      </iframe>
+    </div>
+    <p style="font-size:10px; color:var(--muted); margin-top:12px; letter-spacing:0.04em;">Scroll inside the frame to explore the full page.</p>
+  </div>
+
+  <footer>
+    <span>© 2026 Sukanya Sripanha</span>
+    <a href="../../index.html">Back to portfolio</a>
+  </footer>
+
+</body>
+</html>
