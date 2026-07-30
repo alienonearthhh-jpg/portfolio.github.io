@@ -169,13 +169,13 @@
       }
       .process-step {
         display: grid;
-        grid-template-columns: 1fr 180px;
+        grid-template-columns: 1fr 90px;
         gap: 56px;
         align-items: center;
       }
       .process-step + .process-step { margin-top: 64px; }
-      .process-step.reverse { grid-template-columns: 180px 1fr; }
-      .process-step.wide-media { grid-template-columns: 1fr 360px; }
+      .process-step.reverse { grid-template-columns: 90px 1fr; }
+      .process-step.wide-media { grid-template-columns: 1fr 180px; }
       .process-step.reverse .process-copy { order: 2; }
       .process-step.reverse .process-media { order: 1; }
       .process-copy .step {
@@ -193,7 +193,7 @@
       }
       .process-copy p { font-size: 12px; color: var(--muted); line-height: 1.7; max-width: 420px; }
       .process-media img {
-        width: 180px;
+        width: 90px;
         display: block;
         border: 1px solid var(--border);
         object-fit: cover;
@@ -203,7 +203,7 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 0;
-        width: 360px;
+        width: 180px;
       }
       .process-media.crop-pair img {
         width: 100%;
@@ -216,8 +216,8 @@
         .process-step, .process-step.reverse, .process-step.wide-media { grid-template-columns: 1fr; }
         .process-step.reverse .process-copy,
         .process-step.reverse .process-media { order: initial; }
-        .process-media img { width: 140px; }
-        .process-media.crop-pair { width: 280px; }
+        .process-media img { width: 70px; }
+        .process-media.crop-pair { width: 140px; }
       }
 
       /* ── footer ── */
@@ -364,7 +364,7 @@
         </div>
       </div>
 
-      <div style="max-width:180px; margin:56px auto 0;">
+      <div style="max-width:90px; margin:56px auto 0;">
         <img src="process_interaction_portrait.jpg" alt="Closing reference portrait" style="width:100%; display:block; border:1px solid var(--border); aspect-ratio:1/1; object-fit:cover;" />
       </div>
 
