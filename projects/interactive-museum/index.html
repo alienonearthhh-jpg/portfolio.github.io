@@ -175,6 +175,7 @@
       }
       .process-step + .process-step { margin-top: 64px; }
       .process-step.reverse { grid-template-columns: 180px 1fr; }
+      .process-step.wide-media { grid-template-columns: 1fr 360px; }
       .process-step.reverse .process-copy { order: 2; }
       .process-step.reverse .process-media { order: 1; }
       .process-copy .step {
@@ -201,20 +202,22 @@
       .process-media.crop-pair {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 6px;
-        width: 180px;
+        gap: 0;
+        width: 360px;
       }
-      .process-media.crop-pair img { width: 100%; }
-      .process-media.crop-pair img:nth-child(3) {
-        grid-column: 1 / span 2;
-        width: 50%;
-        margin: 6px auto 0;
+      .process-media.crop-pair img {
+        width: 100%;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        border: 1px solid var(--border);
+        margin: -1px 0 0 -1px;
       }
       @media (max-width: 700px) {
-        .process-step, .process-step.reverse { grid-template-columns: 1fr; }
+        .process-step, .process-step.reverse, .process-step.wide-media { grid-template-columns: 1fr; }
         .process-step.reverse .process-copy,
         .process-step.reverse .process-media { order: initial; }
-        .process-media img, .process-media.crop-pair { width: 140px; }
+        .process-media img { width: 140px; }
+        .process-media.crop-pair { width: 280px; }
       }
 
       /* ── footer ── */
@@ -277,6 +280,7 @@
         <div class="desc-text">
           <p>An immersive, browser-based museum experience that pairs classic artworks with ambient soundscapes. Visitors explore a gallery of eight paintings across four artists — Van Gogh, Monet, Hopper, and Nara — and interact with each work through a sliding puzzle mechanic.</p>
           <p>The project explores how sound and interactivity can transform passive art viewing into an embodied experience. Each painter has a unique ambient sound environment that plays when the puzzle is engaged, creating an emotional layer tied to the work.</p>
+          <p>While preserving the originality of each piece, the experience encourages visitors to engage more deeply with the art through interaction and sound.</p>
         </div>
         <div class="desc-media">
           <img src="narainmuseum.GIF" alt="Interactive Museum — Nara puzzle in motion" class="desc-gif" />
@@ -300,7 +304,7 @@
     <!-- figma mockup -->
     <div style="max-width:960px; margin:0 auto; padding:48px 40px 0; border-top:1px solid var(--border);">
       <div style="font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:28px;">Figma Prototype — UI Design</div>
-      <p style="font-size:13px; max-width:600px; margin-bottom:24px;">The interaction was also designed in Figma — mapping the gallery view, difficulty levels, and puzzle states across a tablet interface.</p>
+      <p style="font-size:13px; max-width:600px; margin-bottom:24px;">The interaction was also designed in Figma — mapping the gallery view, difficulty levels, and puzzle states across a tablet interface. The layout concept stays simple and quick, encouraging visitors to spend their time on the interaction itself rather than on choosing which artwork to explore.</p>
       <div style="border:1px solid var(--border); overflow:hidden;">
         <div style="display:flex; align-items:center; gap:6px; padding:8px 12px; background:#f0f0ee; border-bottom:1px solid var(--border);">
           <div style="width:10px;height:10px;border-radius:50%;background:#ff5f57;flex-shrink:0;"></div>
@@ -347,7 +351,7 @@
         </div>
       </div>
 
-      <div class="process-step">
+      <div class="process-step wide-media">
         <div class="process-copy">
           <div class="step">03</div>
           <div class="step-title">Interaction</div>
@@ -437,7 +441,8 @@
           tiles = [];
           const marginX = p.width * 0.06;
           const contentW = p.width - marginX * 2;
-          p.fill(0); p.textAlign(p.LEFT, p.TOP); p.textSize(p.width < 500 ? 22 : 32);
+          const titleSize = p.width < 500 ? 22 : 32;
+          p.fill(0); p.textAlign(p.LEFT, p.TOP); p.textSize(titleSize); p.textLeading(titleSize * 1.15);
           p.text("IMMERSIVE\nMUSEUM", marginX, 40);
           const gridTop = p.width < 500 ? 140 : 170;
           const gap = 18;
