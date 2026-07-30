@@ -142,6 +142,12 @@
         display: block;
         border: 1px solid var(--border);
       }
+      .desc-media-caption {
+        font-size: 9px;
+        color: var(--muted);
+        line-height: 1.6;
+        margin-top: 8px;
+      }
       @media (max-width: 700px) {
         .desc-grid { grid-template-columns: 1fr; }
       }
@@ -159,27 +165,57 @@
         letter-spacing: 0.1em;
         text-transform: uppercase;
         color: var(--muted);
-        margin-bottom: 32px;
+        margin-bottom: 40px;
       }
-      .process-grid {
+      .process-step {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 40px;
+        grid-template-columns: 1fr 180px;
+        gap: 56px;
+        align-items: center;
       }
-      .process-item .step {
+      .process-step + .process-step { margin-top: 64px; }
+      .process-step.reverse { grid-template-columns: 180px 1fr; }
+      .process-step.reverse .process-copy { order: 2; }
+      .process-step.reverse .process-media { order: 1; }
+      .process-copy .step {
         font-size: 10px;
         color: var(--accent);
         letter-spacing: 0.08em;
         margin-bottom: 6px;
       }
-      .process-item .step-title {
+      .process-copy .step-title {
         font-weight: 700;
-        font-size: 12px;
+        font-size: 13px;
         letter-spacing: 0.05em;
         text-transform: uppercase;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
       }
-      .process-item p { font-size: 11px; color: var(--muted); line-height: 1.7; }
+      .process-copy p { font-size: 12px; color: var(--muted); line-height: 1.7; max-width: 420px; }
+      .process-media img {
+        width: 180px;
+        display: block;
+        border: 1px solid var(--border);
+        object-fit: cover;
+        aspect-ratio: 1/1;
+      }
+      .process-media.crop-pair {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+        width: 180px;
+      }
+      .process-media.crop-pair img { width: 100%; }
+      .process-media.crop-pair img:nth-child(3) {
+        grid-column: 1 / span 2;
+        width: 50%;
+        margin: 6px auto 0;
+      }
+      @media (max-width: 700px) {
+        .process-step, .process-step.reverse { grid-template-columns: 1fr; }
+        .process-step.reverse .process-copy,
+        .process-step.reverse .process-media { order: initial; }
+        .process-media img, .process-media.crop-pair { width: 140px; }
+      }
 
       /* ── footer ── */
       footer {
@@ -197,7 +233,6 @@
         .site-nav, .project-header, .project-desc, .instructions, .sketch-wrap, .process { padding-left: 20px; padding-right: 20px; }
         .sketch-wrap { margin-left: 20px; margin-right: 20px; }
         .project-header { grid-template-columns: 1fr; }
-        .process-grid { grid-template-columns: 1fr; }
         .instructions { flex-direction: column; gap: 8px; }
       }
     </style>
@@ -245,6 +280,7 @@
         </div>
         <div class="desc-media">
           <img src="narainmuseum.GIF" alt="Interactive Museum — Nara puzzle in motion" class="desc-gif" />
+          <div class="desc-media-caption">Yoshitomo Nara, Miss Margaret, 2016. Installation view, Yoshitomo Nara, Jun 10 – Aug 31, 2025, Hayward Gallery, London. Photo: Mark Blower © Yoshitomo Nara, courtesy the artist and the Hayward Gallery.</div>
         </div>
       </div>
     </div>
@@ -288,27 +324,46 @@
     <!-- process notes -->
     <section class="process">
       <div class="process-title">Process</div>
-      <div class="process-grid">
 
-        <div class="process-item">
+      <div class="process-step">
+        <div class="process-copy">
           <div class="step">01</div>
           <div class="step-title">Concept</div>
           <p>Exploring how digital interfaces can create intimacy with art. The sliding puzzle forces close looking — you have to examine fragments before seeing the whole.</p>
         </div>
+        <div class="process-media">
+          <img src="process_concept.jpg" alt="Reference landscape shot — concept exploration" />
+        </div>
+      </div>
 
-        <div class="process-item">
+      <div class="process-step reverse">
+        <div class="process-copy">
           <div class="step">02</div>
           <div class="step-title">Sound Design</div>
           <p>Each ambient track was chosen to evoke the emotional register of each painter — restless for Van Gogh, quiet and aquatic for Monet, urban and lonely for Hopper.</p>
         </div>
+        <div class="process-media">
+          <img src="process_sounddesign.jpg" alt="Reference portrait — sound design mood" />
+        </div>
+      </div>
 
-        <div class="process-item">
+      <div class="process-step">
+        <div class="process-copy">
           <div class="step">03</div>
           <div class="step-title">Interaction</div>
           <p>The pixelation overlay on puzzle tiles references the visual breakdown of perception — how we see before we understand. Sound only starts after the first interaction, respecting browser autoplay rules.</p>
         </div>
-
+        <div class="process-media crop-pair">
+          <img src="process_interaction_eye.jpg" alt="Close-up eye crop — perception detail" />
+          <img src="process_interaction_skin.jpg" alt="Close-up skin/hair crop — perception detail" />
+          <img src="process_interaction_nose.jpg" alt="Close-up nose crop — perception detail" />
+        </div>
       </div>
+
+      <div style="max-width:180px; margin:56px auto 0;">
+        <img src="process_interaction_portrait.jpg" alt="Closing reference portrait" style="width:100%; display:block; border:1px solid var(--border); aspect-ratio:1/1; object-fit:cover;" />
+      </div>
+
     </section>
 
     <footer>
@@ -336,7 +391,7 @@
           { key:"vangogh_portrait",  artist:"Vincent van Gogh", work:"Self-Portrait with Bandaged Ear",   img:"vangogh_portrait.jpg",  painterKey:"vangogh", caption:"Vincent van Gogh: Self-Portrait with Bandaged Ear, oil on canvas, 1889; Courtauld Institute of Art." },
           { key:"monet_portrait",    artist:"Claude Monet",     work:"Self-portrait in a Beret",          img:"monet_portrait.jpg",    painterKey:"monet",   caption:"Claude Monet: Self-portrait in a Beret, oil on canvas; private collection." },
           { key:"hopper_portrait",   artist:"Edward Hopper",    work:"Self-Portrait",                     img:"hopper_portrait.jpg",   painterKey:"hopper",  caption:"Edward Hopper: Self-Portrait, 1925–1930, oil on canvas." },
-          { key:"nara_portrait",     artist:"Yoshitomo Nara",   work:"Miss Moonlight",                    img:"nara_portrait.jpg",     painterKey:"nara",    caption:"Yoshitomo Nara, Miss Moonlight, 2020. Mori Art Museum, Tokyo." },
+          { key:"nara_portrait",     artist:"Yoshitomo Nara",   work:"Miss Margaret",                      img:"nara_portrait.jpg",     painterKey:"nara",    caption:"Yoshitomo Nara, Miss Margaret, 2016. Installation view, Yoshitomo Nara, Jun 10 – Aug 31, 2025, Hayward Gallery, London. Photo: Mark Blower © Yoshitomo Nara, courtesy the artist and the Hayward Gallery." },
           { key:"vangogh_starrynight",artist:"Vincent van Gogh",work:"The Starry Night",                  img:"vangogh_starrynight.jpg",painterKey:"vangogh", caption:"Vincent van Gogh: The Starry Night, oil on canvas, 1889; MoMA, New York." },
           { key:"monet_bridge",      artist:"Claude Monet",     work:"Water Lilies and Japanese Bridge",  img:"monet_bridge.jpg",      painterKey:"monet",   caption:"Claude Monet: Water Lilies and Japanese Bridge, 1899; Princeton University Art Museum." },
           { key:"hopper_nighthawks", artist:"Edward Hopper",    work:"Nighthawks",                        img:"hopper_nighthawks.jpg", painterKey:"hopper",  caption:"Edward Hopper: Nighthawks, 1942, oil on canvas; Art Institute of Chicago." },
@@ -383,23 +438,23 @@
           const marginX = p.width * 0.06;
           const contentW = p.width - marginX * 2;
           p.fill(0); p.textAlign(p.LEFT, p.TOP); p.textSize(p.width < 500 ? 22 : 32);
-          p.text("IMMERSIVE\nMUSEUM", marginX, 36);
-          const gridTop = p.width < 500 ? 120 : 140;
-          const gap = 12;
+          p.text("IMMERSIVE\nMUSEUM", marginX, 40);
+          const gridTop = p.width < 500 ? 140 : 170;
+          const gap = 18;
           const tileW = (contentW - gap*(GCOLS-1))/GCOLS;
           const tileH = tileW * 0.75;
-          const capH = 56;
+          const capH = 44;
           for (let r=0;r<GROWS;r++) {
             for (let c=0;c<GCOLS;c++) {
               const idx = r*GCOLS+c;
               const a = ARTWORKS[idx];
               const x = marginX + c*(tileW+gap);
-              const y = gridTop + r*(tileH+capH+20);
+              const y = gridTop + r*(tileH+capH+28);
               const img = thumbs[a.img];
               if (img) drawImageCover(img, x, y, tileW, tileH);
               p.noFill(); p.stroke(0,80); p.rect(x, y, tileW, tileH);
-              p.noStroke(); p.fill(0); p.textSize(10); p.textAlign(p.LEFT, p.TOP);
-              p.text(`${a.artist}\n${a.work}`, x, y+tileH+8, tileW, capH);
+              p.noStroke(); p.fill(0); p.textSize(10); p.textLeading(14); p.textAlign(p.LEFT, p.TOP);
+              p.text(`${a.artist}\n${a.work}`, x, y+tileH+10, tileW, capH);
               tiles.push({x,y,w:tileW,h:tileH,idx});
             }
           }
@@ -445,7 +500,7 @@
           p.text(`Time: ${liveSec}s`, puzzle.x, puzzle.y-20);
           drawPuzzleTiles(img);
           p.fill(0); p.textAlign(p.LEFT,p.TOP); p.textSize(11);
-          p.text(art.caption, puzzle.x, puzzle.y+puzzle.h+14, puzzle.w, 80);
+          p.text(art.caption, puzzle.x, puzzle.y+puzzle.h+14, puzzle.w, 100);
           p.textAlign(p.RIGHT,p.BOTTOM); p.fill(120); p.textSize(10);
           p.text("ESC to return to museum", p.width-16, p.height-12);
           if (puzzleSolved) drawSolvedOverlay();
