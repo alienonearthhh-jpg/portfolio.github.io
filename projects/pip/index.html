@@ -34,10 +34,40 @@
 
     /* insight blocks */
     .insight-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
-    .insight-item { border-top: 2px solid var(--ink); padding-top: 16px; }
-    .insight-num { font-size: 10px; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 8px; }
+    .insight-item {
+      border-top: 2px solid var(--ink);
+      padding-top: 16px;
+      transition: border-color 0.3s ease;
+      cursor: default;
+    }
+    .insight-item:hover { border-top-color: var(--accent); }
+    .insight-num {
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+      transition: letter-spacing 0.3s ease;
+    }
+    .insight-item:hover .insight-num { letter-spacing: 0.16em; }
     .insight-title { font-weight: 700; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px; line-height: 1.4; }
     .insight-body { font-size: 11px; color: var(--muted); line-height: 1.7; }
+    .insight-reveal {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.4s ease;
+      font-size: 11px;
+      font-style: italic;
+      color: var(--ink);
+      border-left: 2px solid var(--accent);
+      padding-left: 10px;
+      margin-top: 0;
+    }
+    .insight-item:hover .insight-reveal {
+      max-height: 120px;
+      opacity: 1;
+      margin-top: 14px;
+    }
 
     /* window embed */
     .window-card { border: 1px solid var(--border); overflow: hidden; }
@@ -52,6 +82,70 @@
 
     /* two col */
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+
+    /* prototype photos */
+    .proto-pair { max-width: 640px; margin: 40px auto 0; }
+    .proto-pair img { width: 100%; display: block; border: 1px solid var(--border); }
+    .proto-caption { font-size: 10px; color: var(--muted); line-height: 1.6; margin-top: 10px; text-align: center; }
+
+    /* annotated photo */
+    .annotated-photo { position: relative; border-top: 2px solid var(--ink); padding-top: 16px; margin-bottom: 28px; }
+    .annotated-photo img { width: 100%; display: block; }
+    .annotate {
+      position: absolute;
+      font-size: 8.5px;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      background: rgba(255,255,255,0.9);
+      padding: 2px 6px 2px 12px;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+      line-height: 1.4;
+    }
+    .annotate::before {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      left: -3px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    /* shape nav */
+    .shape-nav { max-width: 960px; margin: 0 auto; padding: 48px 40px; border-bottom: 1px solid var(--border); }
+    .shape-nav-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+    .shape-map { position: relative; width: 100%; height: 380px; }
+    .shape-node {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      color: var(--ink);
+      cursor: pointer;
+      transition: color 0.25s ease, transform 0.25s ease;
+    }
+    .shape-node:hover { color: var(--accent); transform: translateY(-2px); }
+    .shape-node img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+    .shape-node span { position: relative; z-index: 1; padding: 0 14px; }
+    .shape-node.ellipse { width: 270px; height: 190px; top: 0; left: 0; }
+    .shape-node.circle-lg { width: 230px; height: 230px; top: 0; right: 0; }
+    .shape-node.circle-sm { width: 180px; height: 180px; bottom: 0; right: 60px; }
+    .shape-node.rect { width: 280px; height: 100px; bottom: 10px; left: 0; }
+    .shape-node.triangle { width: 310px; height: 230px; top: 65px; left: 230px; }
+    .shape-node.triangle span { margin-top: 46px; }
+    @media (max-width: 700px) {
+      .shape-map { height: auto; display: flex; flex-direction: column; gap: 16px; }
+      .shape-node { position: static !important; width: 100% !important; height: 100px !important; }
+      .shape-node img { display: none; }
+    }
 
     footer { border-top: 1px solid var(--border); padding: 24px 40px; display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); }
     footer a { color: var(--muted); text-decoration: none; }
@@ -86,8 +180,35 @@
     </div>
   </header>
 
+  <!-- shape navigation map -->
+  <div class="shape-nav">
+    <div class="shape-nav-label">Explore the process</div>
+    <div class="shape-map">
+      <a class="shape-node ellipse" href="#insights">
+        <img src="shape_key-insights.png" alt="" />
+        <span>Key Insights</span>
+      </a>
+      <a class="shape-node circle-lg" href="#challenges">
+        <img src="shape_challenges.png" alt="" />
+        <span>Challenges</span>
+      </a>
+      <a class="shape-node circle-sm" href="#target">
+        <img src="shape_target.png" alt="" />
+        <span>Our Target</span>
+      </a>
+      <a class="shape-node rect" href="#usability">
+        <img src="shape_usability.png" alt="" />
+        <span>Usability Testing</span>
+      </a>
+      <a class="shape-node triangle" href="#creative">
+        <img src="shape_creative.png" alt="" />
+        <span>Creative Solutions</span>
+      </a>
+    </div>
+  </div>
+
   <!-- overview -->
-  <div class="section">
+  <div class="section" id="overview">
     <div class="section-label">Overview</div>
     <div class="two-col">
       <div>
@@ -103,30 +224,55 @@
     </div>
   </div>
 
+  <!-- our target -->
+  <div class="section" id="target">
+    <div class="section-label">Our Target</div>
+    <p style="font-size:13px; max-width:600px;">Business event organisers and introverts — people who attend or run high-density social events (conferences, mixers, company socials) but find the "first word" the hardest part of making a new connection.</p>
+  </div>
+
   <!-- insights -->
-  <div class="section">
+  <div class="section" id="insights">
     <div class="section-label">Key Insights</div>
     <div class="insight-grid">
       <div class="insight-item">
         <div class="insight-num">01</div>
         <div class="insight-title">The real barrier is the first word</div>
         <p class="insight-body">Interviews revealed a specific user: introverts who have no problem continuing a conversation — only starting one. Once the ice is broken, they thrive. PIP's job is just to break it.</p>
+        <div class="insight-reveal">"I just need something to say first — after that I'm fine." — interview participant</div>
       </div>
       <div class="insight-item">
         <div class="insight-num">02</div>
         <div class="insight-title">Physical beats digital</div>
         <p class="insight-body">A tap is more intentional than exchanging handles on a phone. The physical gesture creates a shared moment — a small ceremony that signals mutual willingness to connect.</p>
+        <div class="insight-reveal">Unlike a phone exchange, a tap requires both people to opt in at the same moment — there's no unilateral "adding" someone.</div>
       </div>
       <div class="insight-item">
         <div class="insight-num">03</div>
         <div class="insight-title">Narrow your audience</div>
         <p class="insight-body">Research surfaced several potential target groups. We committed to one: socially capable introverts at events. This focus sharpened every design decision that followed.</p>
+        <div class="insight-reveal">Other candidates considered: conference exhibitors, orientation groups — neither matched the repeat, high-density social context PIP is built for.</div>
       </div>
     </div>
   </div>
 
+  <!-- creative solutions -->
+  <div class="section" id="creative">
+    <div class="section-label">Creative Solutions</div>
+    <p style="font-size:13px; max-width:600px;">PIP is an interactive wearable device worn at the event — the core creative solution to the ice-breaking problem. Instead of traditional ice-breakers, which still require someone to find the right topic and push through the awkwardness of starting, PIP skips that step entirely. A simple tap surfaces a compatibility match and a conversation starter, so the hardest part of meeting someone new is already done before you speak.</p>
+  </div>
+
+  <!-- prototype -->
+  <div class="section" id="prototype">
+    <div class="section-label">Prototype</div>
+    <p style="font-size:13px; max-width:600px; margin-bottom:32px;">The physical build, worn on a cord like a badge — quietly present until it's activated by a tap.</p>
+    <div class="proto-pair" style="margin-top:0;">
+      <img src="pip_devices_pair.jpg" alt="Two finished PIP devices, personalized with charms" />
+      <div class="proto-caption">Two finished units — each personalized with charms, ready to be tapped together.</div>
+    </div>
+  </div>
+
   <!-- live zine embed -->
-  <div class="section">
+  <div class="section" id="zine">
     <div class="section-label">Interactive Zine</div>
     <p style="font-size:13px; max-width:600px; margin-bottom:24px;">The concept is documented as an interactive digital zine — scroll through to explore the product vision, interaction model, and animated prototype.</p>
     <div class="window-card">
@@ -150,15 +296,31 @@
     </div>
   </div>
 
+  <!-- usability testing -->
+  <div class="section" id="usability">
+    <div class="section-label">Usability Testing</div>
+    <p style="font-size:13px; max-width:600px;">Early testing showed people were open to wearing and using the device, and that its value scales with the size of the event — the more people in the room, the more interesting the interaction becomes. PIP feels most compelling at the scale of meeting many strangers in one sitting, rather than a one-off introduction.</p>
+  </div>
+
   <!-- challenges -->
-  <div class="section">
+  <div class="section" id="challenges">
     <div class="section-label">Challenges</div>
     <div class="two-col">
       <div>
         <p style="font-size:13px; margin-bottom:16px;">PIP is a hardware-software product, which meant designing under real technical uncertainty. The device was still being debugged during the design process — components were in flux, and there was no guarantee certain parts could be removed or replaced.</p>
         <p style="font-size:13px;">The key constraint: the auto-wire mechanism had to remain intact. I had to design the cover and interaction model around a component I couldn't change, not the other way around. This pushed me to treat the hardware as a given and focus on what the interaction layer could do independently.</p>
+        <p style="font-size:13px; margin-top:16px;">Ahead of the Tech Fest showcase, the limited number of working devices and the ongoing wiring issues meant a fully finished cover couldn't be completed in time. As the person designing the case, I was explicitly asked to work around the exposed wires for the time being rather than wait for a stable hardware revision — the showcase unit reflects that compromise.</p>
       </div>
       <div>
+        <div class="annotated-photo">
+          <img src="pip_flatlay.jpg" alt="Annotated PIP prototype flatlay" />
+          <div class="annotate" style="top:16%; left:47%;">Sun avatar / interest tag</div>
+          <div class="annotate" style="top:52%; left:44%;">Prototype case (V1)</div>
+          <div class="annotate" style="top:57%; left:50%;">LED Screen — Avatar</div>
+          <div class="annotate" style="top:66%; left:44%;">Button — press to see prompt</div>
+          <div class="annotate" style="top:80%; left:58%;">NFC Reader — tap to connect</div>
+          <div class="annotate" style="top:90%; left:52%;">NFC Tag</div>
+        </div>
         <div style="border-top: 2px solid var(--ink); padding-top: 16px;">
           <div style="font-size:10px; letter-spacing:0.08em; color:var(--accent); margin-bottom:8px;">Constraint</div>
           <div style="font-weight:700; font-size:12px; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:8px;">Design around hardware, not for it</div>
@@ -168,6 +330,11 @@
           <div style="font-size:10px; letter-spacing:0.08em; color:var(--accent); margin-bottom:8px;">Research</div>
           <div style="font-weight:700; font-size:12px; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:8px;">Interviews shaped the target</div>
           <p style="font-size:11px; color:var(--muted); line-height:1.7;">User interviews were central. Multiple target groups were considered, but research kept pointing to one clear profile — introverts who can hold a conversation, but need help starting one.</p>
+        </div>
+        <div style="border-top: 1px solid var(--border); padding-top: 16px; margin-top: 24px;">
+          <div style="font-size:10px; letter-spacing:0.08em; color:var(--accent); margin-bottom:8px;">Production Limit</div>
+          <div style="font-weight:700; font-size:12px; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:8px;">Working around exposed wiring</div>
+          <p style="font-size:11px; color:var(--muted); line-height:1.7;">A limited number of working devices and unresolved wiring meant the cover couldn't be fully finished before Tech Fest. I was directed to design around the exposed wires rather than wait — a deliberate short-term compromise, not a final design decision.</p>
         </div>
       </div>
     </div>
