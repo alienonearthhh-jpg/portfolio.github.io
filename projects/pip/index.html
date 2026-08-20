@@ -84,9 +84,7 @@
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
 
     /* prototype photos */
-    .proto-pair { max-width: 640px; margin: 40px auto 0; }
-    .proto-pair img { width: 100%; display: block; border: 1px solid var(--border); }
-    .proto-caption { font-size: 10px; color: var(--muted); line-height: 1.6; margin-top: 10px; text-align: center; }
+    .proto-pair img { width: 100%; display: block; }
 
     /* annotated photo */
     .annotated-photo { position: relative; border-top: 2px solid var(--ink); padding-top: 16px; margin-bottom: 28px; }
@@ -264,10 +262,14 @@
   <!-- prototype -->
   <div class="section" id="prototype">
     <div class="section-label">Prototype</div>
-    <p style="font-size:13px; max-width:600px; margin-bottom:32px;">The physical build, worn on a cord like a badge — quietly present until it's activated by a tap.</p>
-    <div class="proto-pair" style="margin-top:0;">
-      <img src="pip_devices_pair.png" alt="PIP worn around the neck, styled as an everyday accessory" />
-      <div class="proto-caption">Worn like a badge — designed to sit naturally as part of an everyday outfit.</div>
+    <div class="two-col">
+      <div class="proto-pair">
+        <img src="pip_devices_pair.png" alt="PIP worn around the neck, styled as an everyday accessory" />
+      </div>
+      <div>
+        <p style="font-size:13px; margin-bottom:32px;">The physical build, worn on a cord like a badge — quietly present until it's activated by a tap.</p>
+        <p style="font-size:13px; color:var(--muted);">Worn like a badge — designed to sit naturally as part of an everyday outfit.</p>
+      </div>
     </div>
   </div>
 
